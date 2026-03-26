@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TiriVelo UX Case Study by Supanida Jennings. How I designed structure for a fragmented provider system, turning complexity into clarity." />
+  <title>TiriVelo — Supanida Jennings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../supanida.css" />
+
+  <style>
+    /* =======================================================================
+       CASE STUDY PAGE — Additive styles only.
+       Every token, color, font, and spacing value comes from supanida.css.
+       ======================================================================= */
+
+    :root {
+      --nav-height:    64px;
+      --subnav-height: 48px;
+      --scroll-offset: calc(var(--nav-height) + var(--subnav-height) + 20px);
+    }
+
+    html { scroll-padding-top: var(--scroll-offset); }
+
+    /* -------------------------------------------------------------------
+       SUB-NAV
+    ------------------------------------------------------------------- */
+    .subnav {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 90;
+      background-color: rgba(253, 253, 253, 0.92);
+      border-bottom: 0.75px solid var(--color-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .subnav__inner {
+      display: flex;
+      align-items: center;
+      gap: var(--space-xl);
+      height: var(--subnav-height);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .subnav__inner::-webkit-scrollbar { display: none; }
+
+    .subnav__link {
+      font-family: var(--font-body);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      padding-bottom: 2px;
+      position: relative;
+      flex-shrink: 0;
+      transition: color var(--transition-base);
+    }
+
+    .subnav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background-color: var(--color-text-heading);
+      transition: width var(--transition-base);
+    }
+
+    .subnav__link:hover              { color: var(--color-text-heading); }
+    .subnav__link.is-active          { color: var(--color-text-heading); }
+    .subnav__link.is-active::after   { width: 100%; }
+
+    /* -------------------------------------------------------------------
+       HERO-OVERVIEW MERGED LAYOUT
+    ------------------------------------------------------------------- */
+    .cs-hero-overview-grid {
+      align-items: stretch;
+      margin-top: var(--space-lg);
+      gap: var(--space-lg);
+    }
+
+    .cs-hero-overview-img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* -------------------------------------------------------------------
+       iPHONE 15 — iPhone15.png (879x1788px)
+       Screen centred horizontally (50.00%) and vertically (50.056%).
+    ------------------------------------------------------------------- */
+    .cs-phone-hero {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      margin-inline: auto;
+      aspect-ratio: 879 / 1788;
+    }
+
+    /* PNG frame — solid on top, video shows through black screen area */
+    .cs-phone-hero__frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Video — H:-45px W:90.13%, centred */
+    .cs-phone-hero__video {
+      position: absolute;
+      left:      50%;
+      top:       50.056%;
+      transform: translate(-50%, -50%);
+      width:     90.13%;
+      height:    95.470%;
+      object-fit: fill;
+      border-radius: 8px;
+      display:   block;
+      z-index:   1;
+      background: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+      .cs-phone-hero {
+        max-width: 260px;
+        width: 260px;
+        position: sticky;
+        top: var(--scroll-offset);
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       OVERVIEW TWO-COLUMN GRID
+    ------------------------------------------------------------------- */
+    .cs-overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xxl);
+      margin-top: var(--space-lg);
+    }
+
+    .cs-overview-role {
+      border-top: 0.75px solid var(--color-border);
+      padding-top: var(--space-lg);
+    }
+
+    @media (min-width: 680px) {
+      .cs-overview-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+      .cs-overview-role {
+        border-top: none;
+        border-left: 0.75px solid var(--color-border);
+        padding-top: 0;
+        padding-left: var(--space-xxl);
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       STRATEGY CARDS
+    ------------------------------------------------------------------- */
+    .cs-strategy-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .cs-strategy-card {
+      background-color: var(--color-bg-secondary);
+      border: 0.75px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .cs-strategy-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-accent-light);
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      flex-shrink: 0;
+    }
+
+    .cs-strategy-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text-heading);
+      margin-bottom: var(--space-sm);
+    }
+
+    @media (min-width: 680px) {
+      .cs-strategy-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       PROJECT INFO BAR — full width horizontal
+    ------------------------------------------------------------------- */
+    .cs-project-bar {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding-block: var(--space-lg);
+    }
+
+    .cs-project-bar__item {
+      padding-block: var(--space-md);
+      border-bottom: 0.75px solid var(--color-border);
+    }
+
+    .cs-project-bar__item:last-child { border-bottom: none; }
+
+    @media (min-width: 680px) {
+      .cs-project-bar {
+        grid-template-columns: repeat(5, 1fr);
+        padding-block: var(--space-xl);
+        align-items: start;
+      }
+
+      .cs-project-bar__item {
+        padding-block: 0;
+        padding-inline: var(--space-lg);
+        border-bottom: none;
+        border-right: 0.75px solid var(--color-border);
+      }
+
+      .cs-project-bar__item:first-child { padding-left: 0; }
+      .cs-project-bar__item:last-child  { border-right: none; }
+    }
+
+    /* -------------------------------------------------------------------
+       HERO
+    ------------------------------------------------------------------- */
+    .cs-hero {
+      padding-top: calc(var(--space-xxl) + var(--space-lg));
+      padding-bottom: 0;
+      border-top: 1.5px solid var(--color-text-heading);
+    }
+
+    .cs-hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-body);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      transition: color var(--transition-base);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cs-hero__back::before { content: '←'; }
+    .cs-hero__back:hover   { color: var(--color-text-heading); }
+
+    .cs-hero__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cs-hero__sub {
+      font-family: var(--font-body);
+      font-size: var(--text-body-lg);
+      font-weight: var(--weight-light);
+      line-height: var(--lh-body);
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin-top: var(--space-md);
+    }
+
+    .cs-cover {
+      margin-top: var(--space-xxl);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: var(--color-accent-light);
+      aspect-ratio: 16 / 7;
+    }
+
+    .cs-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* -------------------------------------------------------------------
+       BULLET LIST (hero outcome bullets)
+    ------------------------------------------------------------------- */
+    .cs-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .cs-bullet {
+      display: grid;
+      grid-template-columns: var(--space-lg) 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .cs-bullet::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      margin-top: 8px;
+      justify-self: center;
+    }
+
+    .cs-bullet p {
+      font-size: var(--text-body-md);
+      line-height: var(--lh-body);
+      color: var(--color-text-body);
+    }
+
+    /* -------------------------------------------------------------------
+       STATS ROW
+    ------------------------------------------------------------------- */
+    .cs-stats {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      padding-block: var(--space-xl);
+      border-top: 0.75px solid var(--color-border);
+      border-bottom: 0.75px solid var(--color-border);
+      margin-top: var(--space-xxl);
+    }
+
+    .cs-stat__number {
+      font-family: var(--font-heading);
+      font-size: var(--text-h1);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .cs-stat__label {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      line-height: var(--lh-small);
+    }
+
+    /* -------------------------------------------------------------------
+       BODY LAYOUT
+    ------------------------------------------------------------------- */
+    .cs-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xxl);
+      align-items: start;
+    }
+
+    /* On mobile sidebar moves above main content */
+    .cs-sidebar {
+      padding-top: 0;
+      order: -1;
+    }
+
+    .cs-sidebar__item {
+      padding-block: var(--space-md);
+      border-bottom: 0.75px solid var(--color-border);
+    }
+
+    .cs-sidebar__key {
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-xs);
+    }
+
+    .cs-sidebar__val {
+      font-size: var(--text-body-sm);
+      font-weight: var(--weight-medium);
+      color: var(--color-text-body);
+      line-height: var(--lh-small);
+    }
+
+    .cs-sidebar__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    /* -------------------------------------------------------------------
+       CONTENT RHYTHM
+    ------------------------------------------------------------------- */
+    .cs-content p + p { margin-top: var(--space-lg); }
+
+    .cs-content h3 {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text-heading);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .cs-pullquote {
+      border-left: 4px solid var(--color-accent);
+      padding-left: var(--space-lg);
+      margin-block: var(--space-xl);
+    }
+
+    .cs-pullquote p {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--color-text-heading);
+    }
+
+    .cs-list {
+      counter-reset: cs-counter;
+      margin-top: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .cs-list__item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .cs-list__item::before {
+      counter-increment: cs-counter;
+      content: counter(cs-counter, decimal-leading-zero);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-label);
+      color: var(--color-accent);
+      padding-top: 3px;
+    }
+
+    .cs-list__item p {
+      font-size: var(--text-body-md);
+      line-height: var(--lh-body);
+      color: var(--color-text-body);
+      margin-top: 0 !important;
+    }
+
+    /* -------------------------------------------------------------------
+       ASYMMETRIC FEATURE GRID
+       Left: one tall card | Right: two stacked cards
+    ------------------------------------------------------------------- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .feature-column-left,
+    .feature-column-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .feature-label { color: var(--color-text-muted); margin-bottom: 0; }
+
+    .feature-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-md);
+    }
+
+    @media (min-width: 680px) {
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+        gap: var(--space-xxl);
+      }
+
+      .feature-column-left { height: 100%; }
+
+      .feature-card--tall {
+        flex: 1;
+        height: 100%;
+        justify-content: flex-start;
+      }
+
+      .feature-card--tall .feature-image-wrap {
+        border-radius: var(--radius-md);
+        min-height: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .feature-card--tall .feature-image-wrap img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
+      }
+
+      /* Right column images at 75% size, centred */
+      .feature-column-right .feature-image-wrap {
+        display: flex;
+        justify-content: center;
+      }
+
+      .feature-column-right .feature-image-wrap img {
+        width: 75%;
+        height: auto;
+      }
+
+      /* Left column image same 75% size to match right column */
+      .feature-column-left .feature-image-wrap {
+        display: flex;
+        justify-content: center;
+      }
+
+      .feature-column-left .feature-image-wrap img {
+        width: 75%;
+        height: auto;
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       VIDEO — phone portrait crop, dark bg to frame screen recording
+    ------------------------------------------------------------------- */
+    .cs-video-block {
+      margin-block: var(--space-xl);
+    }
+
+    .cs-video-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: var(--color-text-heading);
+      max-width: 300px;
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .cs-video-wrap video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cs-video-caption {
+      font-size: var(--text-caption);
+      letter-spacing: var(--tracking-label);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+    }
+
+    /* -------------------------------------------------------------------
+       FEATURE BLOCKS — alternating image/text layout
+    ------------------------------------------------------------------- */
+    .cs-feature-block {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+      margin-bottom: var(--space-xxl);
+    }
+
+    /* 2-per-row grid for feature blocks */
+    .cs-feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xxl);
+      margin-top: var(--space-xxl);
+    }
+
+    @media (min-width: 680px) {
+      .cs-feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Card-style feature for grid layout */
+    .cs-feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .cs-feature-card__img {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .cs-feature-card__img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cs-feature-block__img {
+      border-radius: var(--radius-md);
+      display: flex;
+      justify-content: center;
+    }
+
+    .cs-feature-block__img img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+    }
+
+    .feature-image-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .feature-image-wrap img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-md);
+    }
+
+    @media (min-width: 680px) {
+      .cs-feature-block {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cs-feature-block__img img {
+        max-width: 100%;
+      }
+
+      .feature-image-wrap img {
+        max-width: 100%;
+      }
+
+      .cs-feature-block--reverse .cs-feature-block__img {
+        order: 2;
+      }
+
+      .cs-feature-block--reverse .cs-feature-block__text {
+        order: 1;
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       IMAGE
+    ------------------------------------------------------------------- */
+    .cs-img-wrap {
+      margin-block: var(--space-xl);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background-color: var(--color-accent-light);
+    }
+
+    .cs-img-wrap img { width: 100%; height: auto; display: block; }
+
+    .cs-img-caption {
+      font-size: var(--text-caption);
+      letter-spacing: var(--tracking-label);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      text-align: center;
+    }
+
+    /* -------------------------------------------------------------------
+       RESULTS
+    ------------------------------------------------------------------- */
+    .cs-results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .cs-result-card {
+      background-color: var(--color-bg-secondary);
+      border: 0.75px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .cs-result-card__number {
+      font-family: var(--font-heading);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-semibold);
+      color: var(--color-accent);
+      letter-spacing: var(--tracking-heading);
+      line-height: 1;
+    }
+
+    .cs-result-card__desc {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      line-height: var(--lh-body);
+    }
+
+    /* -------------------------------------------------------------------
+       NEXT CASE STUDY
+    ------------------------------------------------------------------- */
+    .cs-next {
+      border-top: 0.75px solid var(--color-border);
+      padding-top: var(--space-xxl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVE — Tablet
+    ------------------------------------------------------------------- */
+    @media (min-width: 680px) {
+      .cs-stats        { grid-template-columns: repeat(3, 1fr); }
+      .cs-results-grid { grid-template-columns: repeat(2, 1fr); }
+      .cs-next         { flex-direction: row; justify-content: space-between; align-items: center; }
+      .cs-video-wrap   { max-width: 340px; }
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVE — Desktop
+    ------------------------------------------------------------------- */
+    @media (min-width: 1024px) {
+      :root { --nav-height: 68px; }
+
+      .cs-layout {
+        grid-template-columns: 1fr 260px;
+        gap: var(--space-xxl);
+      }
+
+      .cs-sidebar {
+        position: sticky;
+        top: var(--scroll-offset);
+        order: 0; /* reset — goes back to natural position on desktop */
+      }
+
+      .cs-results-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       MAIN NAV
+       ===================================================================== -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="site-nav__inner">
+        <a href="../index.html" class="site-nav__logo" aria-label="Supanida Jennings, Home">
+          Supanida Jennings
+        </a>
+        <ul class="site-nav__links" role="list">
+          <li><a href="../index.html#work"    class="nav-link">Work</a></li>
+          <li><a href="../index.html#about"   class="nav-link">About</a></li>
+          <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================================================================
+       SUB-NAV
+       ===================================================================== -->
+  <nav class="subnav" role="navigation" aria-label="Case study sections">
+    <div class="container">
+      <div class="subnav__inner">
+        <a href="#overview"  class="subnav__link" data-section="overview">Overview</a>
+        <a href="#problem"   class="subnav__link" data-section="problem">Problem</a>
+        <a href="#strategy"  class="subnav__link" data-section="strategy">Strategy</a>
+        <a href="#solution"  class="subnav__link" data-section="solution">Solution</a>
+        <a href="#results"   class="subnav__link" data-section="results">Results</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================================================================
+       OVERVIEW — merged hero + overview, two-column
+       ===================================================================== -->
+  <section class="cs-hero" id="overview" aria-labelledby="heading-overview">
+    <div class="container">
+
+      <a href="../index.html" class="cs-hero__back">All Work</a>
+
+      <div class="cs-hero-overview-grid cs-layout">
+
+        <!-- Left: all text content -->
+        <div>
+
+          <!-- Overview label sits above everything -->
+          <p class="section-label">Overview</p>
+
+          <h1 class="section-title animate-in animate-in--delay-1">TiriVelo</h1>
+          <p class="caption animate-in animate-in--delay-1"
+             style="margin-top: var(--space-sm); color: var(--color-text-muted); letter-spacing: var(--tracking-label); text-transform: uppercase;">
+            UX Case Study
+          </p>
+
+          <p class="cs-hero__sub animate-in animate-in--delay-2" style="margin-top: var(--space-lg);">
+            I made a confusing provider experience simpler and easier to use.
+            By improving navigation, clarifying important information, and focusing
+            on what providers need most, I helped create a smoother and more
+            trustworthy experience.
+          </p>
+
+          <div class="cs-bullets animate-in animate-in--delay-3" style="margin-top: var(--space-lg);">
+            <div class="cs-bullet"><p>Cut accessibility problems by about 50%</p></div>
+            <div class="cs-bullet"><p>Reduced extra steps by about 45% and made key information faster to review</p></div>
+            <div class="cs-bullet"><p>Made earnings easier to understand, reducing friction by 30%</p></div>
+          </div>
+
+          <div class="cs-hero__tags" style="margin-top: var(--space-lg);">
+            <span class="tag">UX/UI Design</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">Provider Experience</span>
+            <span class="tag">Marketplace</span>
+          </div>
+
+          <!-- Overview text — space only, no line -->
+          <div style="margin-top: var(--space-xxl);">
+            <h2 class="subsection-title" id="heading-overview">
+              TiriVelo is a pet-care marketplace connecting pet owners with local care providers.
+            </h2>
+            <p class="body-text">
+              It had an existing desktop provider experience, and I designed
+              the mobile provider app to support on-the-go service work,
+              align shared flows, and create a scalable foundation.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Right: real iPhone 15 image with video behind screen -->
+        <div class="cs-hero-overview-img animate-in animate-in--delay-3">
+          <div class="cs-phone-hero">
+
+            <!-- Video positioned exactly behind the screen area -->
+            <video
+              class="cs-phone-hero__video"
+              autoplay
+              loop
+              muted
+              playsinline
+              aria-label="Hero screen recording of the TiriVelo provider experience"
+            >
+              <source src="Hero.mp4" type="video/mp4" />
+            </video>
+
+            <!-- iPhone 15 PNG frame overlaid on top -->
+            <img
+              class="cs-phone-hero__frame"
+              src="iphone15.png"
+              alt=""
+              aria-hidden="true"
+            />
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       BODY — remaining sections + sidebar
+       ===================================================================== -->
+  <div style="padding-top: 0; padding-bottom: var(--space-xl);">
+    <div class="container">
+      <div class="cs-layout">
+        <main>
+
+          <hr style="margin-block: var(--space-xxl);" />
+
+          <!-- PROBLEM -------------------------------------------------- -->
+          <section id="problem" aria-labelledby="heading-problem">
+            <p class="section-label">Problem</p>
+            <h2 class="subsection-title" id="heading-problem">
+              Unclear fit for how providers actually work.
+            </h2>
+
+            <div class="cs-content" style="margin-top: var(--space-lg);">
+              <p class="body-text">
+                User research showed that providers needed a platform that could
+                support the business they already had. But early concepts made key
+                tasks like earnings, scheduling, and follow-up feel unclear.
+              </p>
+
+              <!-- Problems that stood out -->
+              <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-md); ">Problems that stood out</h3>
+              <ol class="cs-list" role="list">
+                <li class="cs-list__item">
+                  <p><strong>Earnings lacked clarity</strong> — payout details were hard to understand</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Scheduling felt unclear</strong> — next steps were not always obvious</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Follow-up felt fragmented</strong> — repetitive screens added unnecessary complexity</p>
+                </li>
+              </ol>
+
+              <!-- Context & Constraints — same heading style, same list style -->
+              <div style="margin-top: var(--space-xl);">
+                <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-md); ">Context &amp; Constraints</h3>
+                <ol class="cs-list" role="list">
+                  <li class="cs-list__item">
+                    <p><strong>Changing requirements</strong> — scope shifted often in a fast-moving startup</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Unclear ownership</strong> — team responsibilities were not always defined</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Limited provider input</strong> — direct feedback was hard to get early on</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Tight timeline</strong> — required focusing only on highest-impact areas</p>
+                  </li>
+                </ol>
+              </div>
+
+            </div>
+          </section>
+
+        </main>
+
+        <!-- ── SIDEBAR ───────────────────────────────────────── -->
+        <aside class="cs-sidebar" aria-label="Project details">
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Role</p>
+            <p class="cs-sidebar__val">Product Designer</p>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Platform</p>
+            <p class="cs-sidebar__val">iOS Mobile App</p>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Timeline</p>
+            <p class="cs-sidebar__val">3 weeks</p>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Methods</p>
+            <ul style="margin-top: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs);" role="list">
+              <li class="cs-hero__outcome" style="font-size: var(--text-body-sm); color: var(--color-text-body);">Rapid interviews</li>
+              <li class="cs-hero__outcome" style="font-size: var(--text-body-sm); color: var(--color-text-body);">Experience mapping</li>
+              <li class="cs-hero__outcome" style="font-size: var(--text-body-sm); color: var(--color-text-body);">Workflow analysis</li>
+              <li class="cs-hero__outcome" style="font-size: var(--text-body-sm); color: var(--color-text-body);">Focused on improving trust-critical workflows (earnings &amp; scheduling)</li>
+            </ul>
+          </div>
+
+          <div class="cs-sidebar__item" style="border-bottom: none;">
+            <p class="cs-sidebar__key">Focus</p>
+            <div class="cs-sidebar__pills" style="margin-top: var(--space-sm);">
+              <span class="tag">Provider Trust</span>
+              <span class="tag">Earnings Clarity</span>
+              <span class="tag">Scheduling Control</span>
+            </div>
+          </div>
+
+        </aside>
+
+      </div><!-- end cs-layout -->
+    </div><!-- end container -->
+  </div><!-- end problem wrapper -->
+
+  <!-- =====================================================================
+       STRATEGY — full width
+       ===================================================================== -->
+  <div style="padding-bottom: var(--space-xl);">
+    <div class="container">
+
+      <hr style="margin-block: var(--space-xxl);" />
+
+      <!-- STRATEGY ------------------------------------------------- -->
+      <section id="strategy" aria-labelledby="heading-strategy">
+        <p class="section-label">Strategy</p>
+        <h2 class="subsection-title" id="heading-strategy">
+          To address the main challenges, I focused on key areas that would create the most impact.
+        </h2>
+
+        <div class="cs-strategy-grid" style="margin-top: var(--space-lg);">
+
+          <!-- 1 Scope & Risk — search icon -->
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Scope &amp; Risk</h3>
+            <p class="body-text">
+              Narrowed the work to Earnings and Edit Schedule to keep the
+              project focused and reduce overlap across teams.
+            </p>
+          </div>
+
+          <!-- 2 Trust Focus -->
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="3"/>
+                <line x1="12" y1="2" x2="12" y2="5"/>
+                <line x1="12" y1="19" x2="12" y2="22"/>
+                <line x1="2" y1="12" x2="5" y2="12"/>
+                <line x1="19" y1="12" x2="22" y2="12"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Trust Focus</h3>
+            <p class="body-text">
+              Concentrated on the moments that most affect provider trust:
+              understanding earnings, managing availability, and knowing
+              what happens after a service ends.
+            </p>
+          </div>
+
+          <!-- 3 Consolidate & Hierarchy -->
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 22 20 2 20"/>
+                <line x1="7" y1="14" x2="17" y2="14"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Consolidate &amp; Hierarchy</h3>
+            <p class="body-text">
+              Reduced repetition and clarified information so important
+              details were easier to find and understand.
+            </p>
+          </div>
+
+          <!-- 4 Validate & Map -->
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                <line x1="8" y1="2" x2="8" y2="18"/>
+                <line x1="16" y1="6" x2="16" y2="22"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Validate &amp; Map</h3>
+            <p class="body-text">
+              Grounded decisions in provider conversations and journey
+              mapping to identify gaps and reduce guesswork.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       SOLUTION — full width
+       ===================================================================== -->
+  <div style="padding-bottom: var(--space-xl);">
+    <div class="container">
+
+          <hr style="margin-block: var(--space-xxl);" />
+
+          <!-- SOLUTION ------------------------------------------------- -->
+          <section id="solution" aria-labelledby="heading-solution">
+            <p class="section-label">Solution</p>
+
+            <!-- ── SCHEDULING SUBSECTION ────────────────────────── -->
+            <h2 class="subsection-title" id="heading-solution">
+              Improving Scheduling Clarity and Control
+            </h2>
+
+            <p class="body-text" style="margin-top: var(--space-lg);">
+              This update made scheduling easier to understand and manage by helping
+              providers quickly read availability, make changes without losing context,
+              and set more precise time ranges.
+            </p>
+
+            <!-- Asymmetric 2-col: Feature 01 left (tall), Features 02+03 right (stacked) -->
+            <div class="feature-grid" style="margin-top: var(--space-lg);">
+
+              <!-- LEFT — Feature 01, spans full height -->
+              <div class="feature-column-left">
+                <div class="feature-card feature-card--tall">
+                  <p class="feature-label caption">Feature 01</p>
+                  <div class="feature-image-wrap">
+                    <img src="atglance.png" alt="Calendar view showing provider availability with clear visual indicators for open and booked days" loading="lazy" />
+                  </div>
+                  <div class="feature-text-wrap">
+                    <h4 class="feature-title card-title">Availability at a Glance</h4>
+                    <p class="feature-description body-text" style="margin-top: var(--space-sm);">
+                      Providers can quickly see which days and times are open or booked
+                      using clear visual cues in the calendar.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT — Features 02 + 03 stacked -->
+              <div class="feature-column-right">
+
+                <div class="feature-card">
+                  <p class="feature-label caption">Feature 02</p>
+                  <div class="feature-image-wrap">
+                    <img src="in-context.png" alt="Edit panel sliding up within the calendar view so the schedule stays visible during editing" loading="lazy" />
+                  </div>
+                  <div class="feature-text-wrap">
+                    <h4 class="feature-title card-title">In-Context Editing</h4>
+                    <p class="feature-description body-text" style="margin-top: var(--space-sm);">
+                      Providers can update availability without leaving the calendar.
+                      The schedule stays visible while an edit panel slides up, so they
+                      can make changes without losing context.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="feature-card">
+                  <p class="feature-label caption">Feature 03</p>
+                  <div class="feature-image-wrap">
+                    <img src="timecomtrol.png" alt="Time picker with fine-grained increments similar to the Apple Clock app" loading="lazy" />
+                  </div>
+                  <div class="feature-text-wrap">
+                    <h4 class="feature-title card-title">Precision Time Control</h4>
+                    <p class="feature-description body-text" style="margin-top: var(--space-sm);">
+                      Providers can adjust time in smaller increments using a familiar
+                      picker, similar to the Apple Clock, making it easier to set
+                      accurate schedules.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ── EARNINGS SUBSECTION ──────────────────────────── -->
+            <div style="margin-top: var(--space-xxl);">
+              <h2 class="subsection-title">
+                Making Earnings Easier to Understand
+              </h2>
+
+              <p class="body-text" style="margin-top: var(--space-lg);">
+                I redesigned the earnings view to make payouts easier to review
+                at a glance. Instead of showing only a final number, the screen
+                gives providers a clearer picture of how their earnings are calculated.
+              </p>
+
+              <div class="cs-feature-block" style="margin-top: var(--space-lg);">
+                <div class="cs-feature-block__img">
+                  <img src="breakdown.png" alt="Earnings breakdown" loading="lazy" />
+                </div>
+                <div class="cs-feature-block__text">
+                  <ol class="cs-list" role="list">
+                    <li class="cs-list__item">
+                      <p><strong>Breakdown instead of total only</strong> — shows the parts behind the payout, rather than only one final amount</p>
+                    </li>
+                    <li class="cs-list__item">
+                      <p><strong>Tips visibility</strong> — makes tips easy to see as part of total earnings</p>
+                    </li>
+                    <li class="cs-list__item">
+                      <p><strong>Clear payout structure</strong> — separates fees and final earnings so providers can quickly understand what they take home</p>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <!-- ── POST-SERVICE SUBSECTION ───────────────────────── -->
+            <div style="margin-top: var(--space-xxl);">
+              <h2 class="subsection-title">
+                Reducing Redundancy in Post-Service Flows
+              </h2>
+
+              <p class="body-text" style="margin-top: var(--space-lg);">
+                I streamlined the post-service flow by merging overlapping screens,
+                adding missing context, and making follow-up easier to review.
+              </p>
+
+              <!-- Features 01 + 02 — asymmetric 2-col (matches scheduling template) -->
+              <div class="feature-grid" style="margin-top: var(--space-lg);">
+
+                <!-- LEFT — Feature 01, tall -->
+                <div class="feature-column-left">
+                  <div class="feature-card feature-card--tall">
+                    <p class="feature-label caption">Feature 01</p>
+                    <div class="feature-image-wrap">
+                      <img src="carereport.png" alt="Unified booking summary screen showing booking details, visit info and earnings" loading="lazy" />
+                    </div>
+                    <div class="feature-text-wrap" style="margin-top: var(--space-sm);">
+                      <h4 class="feature-title card-title">Unified Booking Summary</h4>
+                      <p class="feature-description body-text" style="margin-top: var(--space-sm);">
+                        Combined duplicate post-service screens into one clearer summary,
+                        so providers could review booking details, visit information, and
+                        earnings in one place.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- RIGHT — Feature 02 stacked -->
+                <div class="feature-column-right">
+                  <div class="feature-card">
+                    <p class="feature-label caption">Feature 02</p>
+                    <div class="feature-image-wrap">
+                      <img src="owner.png" alt="Owner and pet profile details accessible within the post-service flow" loading="lazy" />
+                    </div>
+                    <div class="feature-text-wrap" style="margin-top: var(--space-sm);">
+                      <h4 class="feature-title card-title">Added Owner &amp; Pet Context</h4>
+                      <p class="feature-description body-text" style="margin-top: var(--space-sm);">
+                        Made owner and pet details easier to access within the flow,
+                        giving providers clearer context around who the service was for.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Feature 03 — full width, image left text right -->
+              <div class="cs-feature-block" style="margin-top: var(--space-xxl); grid-template-columns: 0.5fr 1fr;">
+                <div class="cs-feature-block__img" style="max-width: 100%;">
+                  <img src="feedback.png" alt="Feedback flow tied to booking with intentional follow-up actions" loading="lazy" />
+                </div>
+                <div class="cs-feature-block__text">
+                  <p class="caption" style="margin-bottom: var(--space-sm);">Feature 03</p>
+                  <h4 class="card-title">Clear and Safe Feedback Flow</h4>
+                  <p class="body-text" style="margin-top: var(--space-md);">
+                    The original flow lacked context and repeated feedback information
+                    across screens. I created a reusable feedback component tied to
+                    the booking, making follow-up clearer and more consistent across
+                    the product.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+          <hr style="margin-block: var(--space-xxl);" />
+
+          <!-- RESULTS -------------------------------------------------- -->
+          <section id="results" aria-labelledby="heading-results">
+            <p class="section-label">Results</p>
+            <h2 class="subsection-title" id="heading-results">
+              Providers reported feeling in control for the first time.
+            </h2>
+
+            <div class="cs-content" style="margin-top: var(--space-lg);">
+              <p class="body-text">
+                Providers felt more confident navigating the platform. By improving
+                clarity across key workflows, the experience became easier to review,
+                easier to act on, and easier to trust.
+              </p>
+
+              <div class="cs-results-grid">
+                <div class="cs-result-card">
+                  <p class="cs-result-card__number">50%</p>
+                  <p class="cs-result-card__desc">Fewer accessibility issues after improving readability, contrast, and interaction clarity</p>
+                </div>
+                <div class="cs-result-card">
+                  <p class="cs-result-card__number">45%</p>
+                  <p class="cs-result-card__desc">Fewer extra steps and faster review of key information</p>
+                </div>
+                <div class="cs-result-card">
+                  <p class="cs-result-card__number">30%</p>
+                  <p class="cs-result-card__desc">Less friction in understanding earnings through a clearer payout breakdown</p>
+                </div>
+              </div>
+
+              <div class="cs-pullquote" style="margin-top: var(--space-xl);">
+                <p>"I need to know right away what needs my attention."</p>
+              </div>
+
+              <p class="body-text" style="margin-top: var(--space-lg);">
+                This insight highlighted how much providers needed clearer signals,
+                stronger structure, and more reliable follow-up.
+              </p>
+
+              <p class="body-text" style="margin-top: var(--space-lg);">
+                Trust came from clarity. Better visibility into earnings, scheduling,
+                and post-service details helped the platform feel more dependable
+                without adding complexity.
+              </p>
+            </div>
+          </section>
+
+          <!-- NEXT -------------------------------------------------------- -->
+          <div class="cs-next" style="margin-top: var(--space-xxl);">
+            <div>
+              <p class="caption">Next case study</p>
+              <p class="card-title" style="margin-top: var(--space-sm);">FlyKind</p>
+              <p class="small-text" style="margin-top: var(--space-xs);">Mobile-first e-commerce for upcycled parachute products</p>
+            </div>
+            <a href="../flykind/flykind.html" class="button-primary">View FlyKind →</a>
+          </div>
+
+    </div><!-- end container -->
+  </div><!-- end full-width solution wrapper -->
+
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__top">
+          <div class="stack-sm">
+            <p class="footer__brand">Supanida Jennings</p>
+            <p class="footer__tagline">UX Designer. Designing structured systems that feel simple.</p>
+          </div>
+          <ul class="footer__links" role="list">
+            <li>
+              <a href="https://www.linkedin.com/in/supanida-jennings" class="footer__link footer__link--icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </li>
+            <li><a href="/cdn-cgi/l/email-protection#87e8eceee2e9e8e5eee2c7e0eae6eeeba9e4e8ea" class="footer__link">Email</a></li>
+          </ul>
+        </div>
+        <div class="footer__bottom">
+          <span>© 2026 Supanida Jennings</span>
+          <span>UX Portfolio</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- =====================================================================
+       JS — Active subnav (Intersection Observer, ~20 lines)
+       ===================================================================== -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function () {
+      const links    = document.querySelectorAll('.subnav__link[data-section]');
+      const sections = document.querySelectorAll('section[id]');
+      if (!links.length || !sections.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              links.forEach((link) => {
+                link.classList.toggle('is-active', link.dataset.section === id);
+              });
+            }
+          });
+        },
+        { rootMargin: '-120px 0px -70% 0px', threshold: 0 }
+      );
