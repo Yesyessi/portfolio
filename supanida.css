@@ -19,10 +19,10 @@
   --color-text-body:     #3E4C60;
   --color-border:        #DADADA;
 
-  /* Accent: warm terracotta, used sparingly */
-  --color-accent:        #B86A4E;
+  /* Accent: warm terracotta — darkened for AA compliance */
+  --color-accent:        #A65D3F;
   --color-accent-light:  #FAF6F0;
-  --color-text-muted:    #8694A6;
+  --color-text-muted:    #637184;
 
   /* — Typography — */
   --font-heading: 'Playfair Display', serif;
@@ -250,6 +250,17 @@ hr {
 .section--alt {
   background-color: var(--color-bg-secondary);
   padding-block: var(--space-xxl);
+}
+
+/* Mobile: tighten section transitions so the visual gap between
+   Work → About → Contact feels even despite background changes. */
+@media (max-width: 679px) {
+  .section {
+    padding-block: 64px;
+  }
+  .section--alt {
+    padding-block: 64px;
+  }
 }
 
 /* Section label — the small uppercase intro line above a heading */
@@ -602,7 +613,7 @@ hr {
   padding: 3px var(--space-md);
   background-color: var(--color-accent-light);
   color: var(--color-accent);
-  border: 1px solid rgba(184, 106, 78, 0.25);
+  border: 1px solid rgba(166, 93, 63, 0.3);
   border-radius: 999px;
   font-family: var(--font-body);
   font-size: var(--text-caption);

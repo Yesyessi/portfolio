@@ -25,6 +25,17 @@
     html { scroll-padding-top: var(--scroll-offset); }
 
     /* -------------------------------------------------------------------
+       SECTION LABEL — more breathing room before headings
+    ------------------------------------------------------------------- */
+    .cs-hero .section-label,
+    #problem .section-label,
+    #strategy .section-label,
+    #solution .section-label,
+    #results .section-label {
+      margin-bottom: 28px;
+    }
+
+    /* -------------------------------------------------------------------
        SUB-NAV
     ------------------------------------------------------------------- */
     .subnav {
@@ -40,6 +51,7 @@
     .subnav__inner {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: var(--space-xl);
       height: var(--subnav-height);
       overflow-x: auto;
@@ -182,7 +194,7 @@
       background-color: var(--color-bg-secondary);
       border: 0.75px solid var(--color-border);
       border-radius: var(--radius-md);
-      padding: var(--space-lg);
+      padding: 28px;
     }
 
     .cs-strategy-icon {
@@ -411,9 +423,22 @@
     }
 
     /* -------------------------------------------------------------------
+       SECTION DIVIDERS — generous breathing room between major sections
+    ------------------------------------------------------------------- */
+    .cs-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin-block: 100px;
+    }
+
+    @media (max-width: 679px) {
+      .cs-divider { margin-block: 72px; }
+    }
+
+    /* -------------------------------------------------------------------
        CONTENT RHYTHM
     ------------------------------------------------------------------- */
-    .cs-content p + p { margin-top: var(--space-lg); }
+    .cs-content p + p { margin-top: 28px; }
 
     .cs-content h3 {
       font-family: var(--font-heading);
@@ -421,14 +446,14 @@
       font-weight: var(--weight-medium);
       letter-spacing: var(--tracking-heading);
       color: var(--color-text-heading);
-      margin-top: var(--space-xl);
-      margin-bottom: var(--space-md);
+      margin-top: 48px;
+      margin-bottom: var(--space-lg);
     }
 
     .cs-pullquote {
       border-left: 4px solid var(--color-accent);
       padding-left: var(--space-lg);
-      margin-block: var(--space-xl);
+      margin-block: 48px;
     }
 
     .cs-pullquote p {
@@ -442,10 +467,10 @@
 
     .cs-list {
       counter-reset: cs-counter;
-      margin-top: var(--space-lg);
+      margin-top: 28px;
       display: flex;
       flex-direction: column;
-      gap: var(--space-md);
+      gap: 20px;
     }
 
     .cs-list__item {
@@ -479,23 +504,32 @@
     .feature-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-lg);
+      gap: 40px;
     }
 
     .feature-column-left,
     .feature-column-right {
       display: flex;
       flex-direction: column;
-      gap: var(--space-lg);
+      gap: 40px;
     }
 
     .feature-card {
       display: flex;
       flex-direction: column;
-      gap: var(--space-md);
+      gap: var(--space-lg);
     }
 
-    .feature-label { color: var(--color-text-muted); margin-bottom: 0; }
+    .feature-label { color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+
+    .feature-text-wrap { margin-top: var(--space-md); }
+
+    /* 8px breathing room around all photos */
+    .feature-image-wrap,
+    .cs-feature-block__img,
+    .cs-feature-card__img {
+      padding: 8px;
+    }
 
     .feature-image-wrap img {
       width: 100%;
@@ -593,7 +627,7 @@
       grid-template-columns: 1fr;
       gap: var(--space-xl);
       align-items: center;
-      margin-bottom: var(--space-xxl);
+      margin-bottom: 80px;
     }
 
     /* 2-per-row grid for feature blocks */
@@ -703,14 +737,14 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: var(--space-lg);
-      margin-top: var(--space-xl);
+      margin-top: 40px;
     }
 
     .cs-result-card {
       background-color: var(--color-bg-secondary);
       border: 0.75px solid var(--color-border);
       border-radius: var(--radius-md);
-      padding: var(--space-lg);
+      padding: 28px;
     }
 
     .cs-result-card__number {
@@ -734,7 +768,8 @@
     ------------------------------------------------------------------- */
     .cs-next {
       border-top: 0.75px solid var(--color-border);
-      padding-top: var(--space-xxl);
+      padding-top: 80px;
+      margin-top: 100px;
       display: flex;
       flex-direction: column;
       gap: var(--space-lg);
@@ -831,10 +866,9 @@
           </p>
 
           <p class="cs-hero__sub animate-in animate-in--delay-2" style="margin-top: var(--space-lg);">
-            I made a confusing provider experience simpler and easier to use.
-            By improving navigation, clarifying important information, and focusing
-            on what providers need most, I helped create a smoother and more
-            trustworthy experience.
+            I built the provider experience around the tasks providers needed to complete with clarity and confidence.
+            By improving navigation, clarifying critical information, and focusing
+            on trust-critical workflows, I made the product feel more usable and dependable.
           </p>
 
           <div class="cs-bullets animate-in animate-in--delay-3" style="margin-top: var(--space-lg);">
@@ -851,11 +885,12 @@
           </div>
 
           <!-- Overview text — space only, no line -->
-          <div style="margin-top: var(--space-xxl);">
+          <div style="margin-top: 80px;">
             <h2 class="subsection-title" id="heading-overview">
               TiriVelo is a pet-care marketplace connecting pet owners with local care providers.
             </h2>
-            <p class="body-text">
+
+            <p class="body-text" style="margin-top: 20px;">
               It had an existing desktop provider experience, and I designed
               the mobile provider app to support on-the-go service work,
               align shared flows, and create a scalable foundation.
@@ -903,24 +938,22 @@
       <div class="cs-layout">
         <main>
 
-          <hr style="margin-block: var(--space-xxl);" />
-
-          <!-- PROBLEM -------------------------------------------------- -->
+          <hr class="cs-divider" />
           <section id="problem" aria-labelledby="heading-problem">
             <p class="section-label">Problem</p>
             <h2 class="subsection-title" id="heading-problem">
               Unclear fit for how providers actually work.
             </h2>
 
-            <div class="cs-content" style="margin-top: var(--space-lg);">
+            <div class="cs-content" style="margin-top: 32px;">
               <p class="body-text">
-                User research showed that providers needed a platform that could
-                support the business they already had. But early concepts made key
-                tasks like earnings, scheduling, and follow-up feel unclear.
+                Research showed that providers needed a platform that fit the way
+                they already work. But early concepts made core tasks like earnings,
+                scheduling, and follow-up harder to understand than they should be.
               </p>
 
               <!-- Problems that stood out -->
-              <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-md); ">Problems that stood out</h3>
+              <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-top: 40px; margin-bottom: var(--space-lg); ">Problems that stood out</h3>
               <ol class="cs-list" role="list">
                 <li class="cs-list__item">
                   <p><strong>Earnings lacked clarity</strong> — payout details were hard to understand</p>
@@ -933,9 +966,8 @@
                 </li>
               </ol>
 
-              <!-- Context & Constraints — same heading style, same list style -->
-              <div style="margin-top: var(--space-xl);">
-                <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-md); ">Context &amp; Constraints</h3>
+              <div style="margin-top: 48px;">
+                <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-lg); ">Context &amp; Constraints</h3>
                 <ol class="cs-list" role="list">
                   <li class="cs-list__item">
                     <p><strong>Changing requirements</strong> — scope shifted often in a fast-moving startup</p>
@@ -1006,16 +1038,14 @@
   <div style="padding-bottom: var(--space-xl);">
     <div class="container">
 
-      <hr style="margin-block: var(--space-xxl);" />
-
-      <!-- STRATEGY ------------------------------------------------- -->
+      <hr class="cs-divider" />
       <section id="strategy" aria-labelledby="heading-strategy">
         <p class="section-label">Strategy</p>
         <h2 class="subsection-title" id="heading-strategy">
-          To address the main challenges, I focused on key areas that would create the most impact.
+          I focused on the parts of the experience that would have the biggest impact on provider trust and usability.
         </h2>
 
-        <div class="cs-strategy-grid" style="margin-top: var(--space-lg);">
+        <div class="cs-strategy-grid" style="margin-top: 40px;">
 
           <!-- 1 Scope & Risk — search icon -->
           <div class="cs-strategy-card">
@@ -1095,9 +1125,7 @@
   <div style="padding-bottom: var(--space-xl);">
     <div class="container">
 
-          <hr style="margin-block: var(--space-xxl);" />
-
-          <!-- SOLUTION ------------------------------------------------- -->
+          <hr class="cs-divider" />
           <section id="solution" aria-labelledby="heading-solution">
             <p class="section-label">Solution</p>
 
@@ -1106,14 +1134,13 @@
               Improving Scheduling Clarity and Control
             </h2>
 
-            <p class="body-text" style="margin-top: var(--space-lg);">
-              This update made scheduling easier to understand and manage by helping
-              providers quickly read availability, make changes without losing context,
-              and set more precise time ranges.
+            <p class="body-text" style="margin-top: 32px;">
+              I designed scheduling to make availability easier to scan,
+              edits easier to make, and time selection more precise.
             </p>
 
             <!-- Asymmetric 2-col: Feature 01 left (tall), Features 02+03 right (stacked) -->
-            <div class="feature-grid" style="margin-top: var(--space-lg);">
+            <div class="feature-grid" style="margin-top: 48px;">
 
               <!-- LEFT — Feature 01, spans full height -->
               <div class="feature-column-left">
@@ -1143,9 +1170,7 @@
                   <div class="feature-text-wrap">
                     <h4 class="feature-title card-title">In-Context Editing</h4>
                     <p class="feature-description body-text" style="margin-top: var(--space-sm);">
-                      Providers can update availability without leaving the calendar.
-                      The schedule stays visible while an edit panel slides up, so they
-                      can make changes without losing context.
+                      Providers can update availability without leaving the calendar. The schedule stays visible while an edit panel slides up, so they can make changes without losing context. Repeat scheduling was previously handled in a separate menu, so I moved it into the edit flow as a dropdown to make updates faster and easier.
                     </p>
                   </div>
                 </div>
@@ -1158,9 +1183,7 @@
                   <div class="feature-text-wrap">
                     <h4 class="feature-title card-title">Precision Time Control</h4>
                     <p class="feature-description body-text" style="margin-top: var(--space-sm);">
-                      Providers can adjust time in smaller increments using a familiar
-                      picker, similar to the Apple Clock, making it easier to set
-                      accurate schedules.
+                      Providers can adjust time in smaller increments using a familiar picker, similar to the Apple Clock. Previously limited to 30-minute increments, scheduling is now more precise and flexible.
                     </p>
                   </div>
                 </div>
@@ -1168,51 +1191,47 @@
               </div>
             </div>
 
-            <!-- ── EARNINGS SUBSECTION ──────────────────────────── -->
-            <div style="margin-top: var(--space-xxl);">
+            <div style="margin-top: 100px;">
               <h2 class="subsection-title">
                 Making Earnings Easier to Understand
               </h2>
 
-              <p class="body-text" style="margin-top: var(--space-lg);">
-                I redesigned the earnings view to make payouts easier to review
-                at a glance. Instead of showing only a final number, the screen
-                gives providers a clearer picture of how their earnings are calculated.
+              <p class="body-text" style="margin-top: 32px;">
+                I redesigned the earnings view to make payouts easier to review at a glance. Instead of only showing a final total, the screen breaks down service fee, platform fee, tips, and total earnings so providers can quickly understand what they earned and why.
               </p>
 
-              <div class="cs-feature-block" style="margin-top: var(--space-lg);">
-                <div class="cs-feature-block__img">
-                  <img src="breakdown.png" alt="Earnings breakdown" loading="lazy" />
+              <div class="cs-feature-block" style="margin-top: 40px; grid-template-columns: 0.5fr 1fr;">
+                <div class="cs-feature-block__img" style="max-width: 100%;">
+                  <img src="breakdown.png" alt="Earnings breakdown showing service fee, platform fee, tips, and total earnings" loading="lazy" />
                 </div>
                 <div class="cs-feature-block__text">
-                  <ol class="cs-list" role="list">
+                  <h4 class="card-title">Earnings Breakdown</h4>
+                  <ol class="cs-list" role="list" style="margin-top: var(--space-lg);">
                     <li class="cs-list__item">
-                      <p><strong>Breakdown instead of total only</strong> — shows the parts behind the payout, rather than only one final amount</p>
+                      <p><strong>Breakdown over total only</strong> — shows how the payout is calculated, not just the end result</p>
                     </li>
                     <li class="cs-list__item">
-                      <p><strong>Tips visibility</strong> — makes tips easy to see as part of total earnings</p>
+                      <p><strong>Visible tips</strong> — keeps tips easy to spot within total earnings</p>
                     </li>
                     <li class="cs-list__item">
-                      <p><strong>Clear payout structure</strong> — separates fees and final earnings so providers can quickly understand what they take home</p>
+                      <p><strong>Clear payout hierarchy</strong> — separates fees and take-home pay for faster understanding</p>
                     </li>
                   </ol>
                 </div>
               </div>
             </div>
 
-            <!-- ── POST-SERVICE SUBSECTION ───────────────────────── -->
-            <div style="margin-top: var(--space-xxl);">
+            <div style="margin-top: 100px;">
               <h2 class="subsection-title">
                 Reducing Redundancy in Post-Service Flows
               </h2>
 
-              <p class="body-text" style="margin-top: var(--space-lg);">
-                I streamlined the post-service flow by merging overlapping screens,
-                adding missing context, and making follow-up easier to review.
+              <p class="body-text" style="margin-top: 32px;">
+                I simplified the post-service flow by removing duplicate screens,
+                adding missing context, and making follow-up easier to review in one place.
               </p>
 
-              <!-- Features 01 + 02 — asymmetric 2-col (matches scheduling template) -->
-              <div class="feature-grid" style="margin-top: var(--space-lg);">
+              <div class="feature-grid" style="margin-top: 48px;">
 
                 <!-- LEFT — Feature 01, tall -->
                 <div class="feature-column-left">
@@ -1242,8 +1261,7 @@
                     <div class="feature-text-wrap" style="margin-top: var(--space-sm);">
                       <h4 class="feature-title card-title">Added Owner &amp; Pet Context</h4>
                       <p class="feature-description body-text" style="margin-top: var(--space-sm);">
-                        Made owner and pet details easier to access within the flow,
-                        giving providers clearer context around who the service was for.
+                        Key owner and pet details were missing at important points in the flow, making it harder for providers to confirm service context. I added that information directly into the workflow so they could quickly understand who the service was for and what they needed to do next.
                       </p>
                     </div>
                   </div>
@@ -1252,7 +1270,7 @@
               </div>
 
               <!-- Feature 03 — full width, image left text right -->
-              <div class="cs-feature-block" style="margin-top: var(--space-xxl); grid-template-columns: 0.5fr 1fr;">
+              <div class="cs-feature-block" style="margin-top: 64px; grid-template-columns: 0.5fr 1fr;">
                 <div class="cs-feature-block__img" style="max-width: 100%;">
                   <img src="feedback.png" alt="Feedback flow tied to booking with intentional follow-up actions" loading="lazy" />
                 </div>
@@ -1260,10 +1278,11 @@
                   <p class="caption" style="margin-bottom: var(--space-sm);">Feature 03</p>
                   <h4 class="card-title">Clear and Safe Feedback Flow</h4>
                   <p class="body-text" style="margin-top: var(--space-md);">
-                    The original flow lacked context and repeated feedback information
-                    across screens. I created a reusable feedback component tied to
-                    the booking, making follow-up clearer and more consistent across
-                    the product.
+                    I found duplicate feedback patterns across the original flow,
+                    which made follow-up feel repetitive and disconnected from the booking.
+                    I fixed this by creating a reusable feedback component tied to
+                    the booking, making the experience clearer, more consistent,
+                    and easier to scale.
                   </p>
                 </div>
               </div>
@@ -1272,19 +1291,17 @@
 
           </section>
 
-          <hr style="margin-block: var(--space-xxl);" />
-
-          <!-- RESULTS -------------------------------------------------- -->
+          <hr class="cs-divider" />
           <section id="results" aria-labelledby="heading-results">
             <p class="section-label">Results</p>
             <h2 class="subsection-title" id="heading-results">
               Providers reported feeling in control for the first time.
             </h2>
 
-            <div class="cs-content" style="margin-top: var(--space-lg);">
+            <div class="cs-content" style="margin-top: 32px;">
               <p class="body-text">
-                Providers felt more confident navigating the platform. By improving
-                clarity across key workflows, the experience became easier to review,
+                Providers felt more confident using the platform. Clearer structure
+                across earnings, scheduling, and follow-up made key tasks easier to review,
                 easier to act on, and easier to trust.
               </p>
 
@@ -1303,16 +1320,13 @@
                 </div>
               </div>
 
-              <div class="cs-pullquote" style="margin-top: var(--space-xl);">
+              <div class="cs-pullquote" style="margin-top: 48px;">
                 <p>"I need to know right away what needs my attention."</p>
               </div>
 
-              <p class="body-text" style="margin-top: var(--space-lg);">
+              <p class="body-text" style="margin-top: 32px;">
                 This insight highlighted how much providers needed clearer signals,
                 stronger structure, and more reliable follow-up.
-              </p>
-
-              <p class="body-text" style="margin-top: var(--space-lg);">
                 Trust came from clarity. Better visibility into earnings, scheduling,
                 and post-service details helped the platform feel more dependable
                 without adding complexity.
@@ -1321,13 +1335,19 @@
           </section>
 
           <!-- NEXT -------------------------------------------------------- -->
-          <div class="cs-next" style="margin-top: var(--space-xxl);">
+          <div class="cs-next" style="margin-top: var(--space-xxl); justify-content: space-between;">
             <div>
-              <p class="caption">Next case study</p>
+              <p class="caption">← Previous case study</p>
+              <p class="card-title" style="margin-top: var(--space-sm);">Thai Tongue</p>
+              <p class="small-text" style="margin-top: var(--space-xs);">Structured tone-learning for Thai language learners</p>
+              <a href="../thai-tongue.html" class="button-secondary" style="margin-top: var(--space-md);">View Thai Tongue</a>
+            </div>
+            <div style="text-align: right;">
+              <p class="caption">Next case study →</p>
               <p class="card-title" style="margin-top: var(--space-sm);">FlyKind</p>
               <p class="small-text" style="margin-top: var(--space-xs);">Mobile-first e-commerce for upcycled parachute products</p>
+              <a href="../flykind/flykind.html" class="button-primary" style="margin-top: var(--space-md);">View FlyKind</a>
             </div>
-            <a href="../flykind/flykind.html" class="button-primary">View FlyKind →</a>
           </div>
 
     </div><!-- end container -->
