@@ -92,6 +92,7 @@ html {
   font-size: 100%;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 64px;
 }
 
 body {
@@ -384,8 +385,7 @@ hr {
 
 .hero {
   padding-block: var(--space-xxl);
-  padding-top: calc(var(--space-xxl) + var(--space-xl));
-  /* Subtle top border accent — a single ruled line from editorial design */
+  padding-top: var(--space-xxl);
   border-top: 1.5px solid var(--color-text-heading);
 }
 
