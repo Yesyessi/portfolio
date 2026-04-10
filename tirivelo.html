@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../supanida.css" />
+  <link rel="stylesheet" href="supanida.css" />
 
   <style>
     /* =======================================================================
@@ -575,7 +575,7 @@
       }
 
       .feature-column-right .feature-image-wrap img {
-        width: 75%;
+        width: 56%;
         height: auto;
       }
 
@@ -814,13 +814,13 @@
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <div class="container">
       <div class="site-nav__inner">
-        <a href="../index.html" class="site-nav__logo" aria-label="Supanida Jennings, Home">
+        <a href="index.html" class="site-nav__logo" aria-label="Supanida Jennings, Home">
           Supanida Jennings
         </a>
         <ul class="site-nav__links" role="list">
-          <li><a href="../index.html#work"    class="nav-link">Work</a></li>
-          <li><a href="../index.html#about"   class="nav-link">About</a></li>
-          <li><a href="../index.html#contact" class="nav-link">Contact</a></li>
+          <li><a href="index.html#work"    class="nav-link">Work</a></li>
+          <li><a href="index.html#about"   class="nav-link">About</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -849,7 +849,7 @@
   <section class="cs-hero" id="overview" aria-labelledby="heading-overview">
     <div class="container">
 
-      <a href="../index.html" class="cs-hero__back">All Work</a>
+      <a href="index.html" class="cs-hero__back">All Work</a>
 
       <div class="cs-hero-overview-grid cs-layout">
 
@@ -886,15 +886,6 @@
 
           <!-- Overview text — space only, no line -->
           <div style="margin-top: 80px;">
-            <h2 class="subsection-title" id="heading-overview">
-              TiriVelo is a pet-care marketplace connecting pet owners with local care providers.
-            </h2>
-
-            <p class="body-text" style="margin-top: 20px;">
-              It had an existing desktop provider experience, and I designed
-              the mobile provider app to support on-the-go service work,
-              align shared flows, and create a scalable foundation.
-            </p>
           </div>
 
         </div>
@@ -1237,8 +1228,8 @@
                 <div class="feature-column-left">
                   <div class="feature-card feature-card--tall">
                     <p class="feature-label caption">Feature 01</p>
-                    <div class="feature-image-wrap">
-                      <img src="carereport.png" alt="Unified booking summary screen showing booking details, visit info and earnings" loading="lazy" />
+                    <div class="feature-image-wrap" style="justify-content: center; display: flex;">
+                      <img src="carereport.png" alt="Unified booking summary screen showing booking details, visit info and earnings" loading="lazy" style="width: 56%; height: auto;" />
                     </div>
                     <div class="feature-text-wrap" style="margin-top: var(--space-sm);">
                       <h4 class="feature-title card-title">Unified Booking Summary</h4>
@@ -1320,16 +1311,8 @@
                 </div>
               </div>
 
-              <div class="cs-pullquote" style="margin-top: 48px;">
-                <p>"I need to know right away what needs my attention."</p>
-              </div>
-
               <p class="body-text" style="margin-top: 32px;">
-                This insight highlighted how much providers needed clearer signals,
-                stronger structure, and more reliable follow-up.
-                Trust came from clarity. Better visibility into earnings, scheduling,
-                and post-service details helped the platform feel more dependable
-                without adding complexity.
+                This project taught me that when a system is still evolving, the hardest part is not designing screens, but figuring out what needs to be clear first. Focusing on trust-critical workflows helped bring structure to the experience and made the product feel more reliable, even as things were still changing.
               </p>
             </div>
           </section>
@@ -1346,7 +1329,7 @@
               <p class="caption">Next case study →</p>
               <p class="card-title" style="margin-top: var(--space-sm);">FlyKind</p>
               <p class="small-text" style="margin-top: var(--space-xs);">Mobile-first e-commerce for upcycled parachute products</p>
-              <a href="../flykind/flykind.html" class="button-primary" style="margin-top: var(--space-md);">View FlyKind</a>
+              <a href="flykind_2.html" class="button-primary" style="margin-top: var(--space-md);">View FlyKind</a>
             </div>
           </div>
 
@@ -1407,3 +1390,9 @@
         },
         { rootMargin: '-120px 0px -70% 0px', threshold: 0 }
       );
+      sections.forEach((section) => observer.observe(section));
+    })();
+  </script>
+
+</body>
+</html>

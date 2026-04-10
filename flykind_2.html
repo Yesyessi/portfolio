@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FlyKind UX Case Study by Supanida Jennings. Designing a mobile-first shopping experience that earns trust for products made from upcycled parachutes." />
+  <title>FlyKind — Supanida Jennings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="supanida.css" />
+
+  <style>
+    /* =======================================================================
+       CASE STUDY PAGE — Additive styles only.
+       Every token, color, font, and spacing value comes from supanida.css.
+       ======================================================================= */
+
+    :root {
+      --nav-height:    64px;
+      --subnav-height: 48px;
+      --scroll-offset: calc(var(--nav-height) + var(--subnav-height) + 20px);
+    }
+
+    .section-label {
+      margin-top: var(--space-xxl);
+      margin-bottom: var(--space-xxl);
+    }
+
+    html { scroll-padding-top: var(--scroll-offset); }
+
+    /* -------------------------------------------------------------------
+       SUB-NAV
+    ------------------------------------------------------------------- */
+    .subnav {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 90;
+      background-color: rgba(253, 253, 253, 0.92);
+      border-bottom: 0.75px solid var(--color-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .subnav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xl);
+      height: var(--subnav-height);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .subnav__inner::-webkit-scrollbar { display: none; }
+
+    .subnav__link {
+      font-family: var(--font-body);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      padding-bottom: 2px;
+      position: relative;
+      flex-shrink: 0;
+      transition: color var(--transition-base);
+    }
+
+    .subnav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background-color: var(--color-text-heading);
+      transition: width var(--transition-base);
+    }
+
+    .subnav__link:hover              { color: var(--color-text-heading); }
+    .subnav__link.is-active          { color: var(--color-text-heading); }
+    .subnav__link.is-active::after   { width: 100%; }
+
+    /* -------------------------------------------------------------------
+       HERO-OVERVIEW MERGED LAYOUT
+    ------------------------------------------------------------------- */
+    .cs-hero-overview-grid {
+      align-items: stretch;
+      margin-top: var(--space-lg);
+      gap: var(--space-lg);
+    }
+
+    .cs-hero-overview-img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* -------------------------------------------------------------------
+       iPHONE 16 — iphone16light.png (383x785px)
+       Video is 16px smaller than frame (8px inset each side), rounded 8px.
+    ------------------------------------------------------------------- */
+    .cs-phone-hero {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      margin-inline: auto;
+      aspect-ratio: 383 / 785;
+    }
+
+    /* PNG frame — solid on top, video shows through black screen area */
+    .cs-phone-hero__frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Video — 16px smaller than frame, centred */
+    .cs-phone-hero__video {
+      position: absolute;
+      left:      50%;
+      top:       50%;
+      transform: translate(-50%, -50%);
+      width:     93.734%;
+      height:    96.943%;
+      object-fit: fill;
+      border-radius: 16px;
+      display:   block;
+      z-index:   1;
+      background: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+      .cs-phone-hero {
+        max-width: 260px;
+        width: 260px;
+        position: sticky;
+        top: var(--scroll-offset);
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       PHONE MOCKUP — static screenshot inside iPhone 16 frame
+       Same sizing as hero video: 24px smaller, 16px radius
+    ------------------------------------------------------------------- */
+    .cs-phone-mockup {
+      position: relative;
+      width: 100%;
+      margin-inline: auto;
+      aspect-ratio: 383 / 785;
+    }
+
+    .cs-phone-mockup__frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .cs-phone-mockup__screen {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 93.734%;
+      height: 96.943%;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 16px;
+      display: block;
+      z-index: 1;
+      background: #ffffff;
+    }
+
+    /* -------------------------------------------------------------------
+       OVERVIEW TWO-COLUMN GRID
+    ------------------------------------------------------------------- */
+    .cs-overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xxl);
+      margin-top: var(--space-lg);
+    }
+
+    .cs-overview-role {
+      border-top: 0.75px solid var(--color-border);
+      padding-top: var(--space-lg);
+    }
+
+    @media (min-width: 680px) {
+      .cs-overview-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+      .cs-overview-role {
+        border-top: none;
+        border-left: 0.75px solid var(--color-border);
+        padding-top: 0;
+        padding-left: var(--space-xxl);
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       STRATEGY CARDS
+    ------------------------------------------------------------------- */
+    .cs-strategy-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .cs-strategy-card {
+      background-color: var(--color-bg-secondary);
+      border: 0.75px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .cs-strategy-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-accent-light);
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      flex-shrink: 0;
+    }
+
+    .cs-strategy-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text-heading);
+      margin-bottom: var(--space-sm);
+    }
+
+    @media (min-width: 680px) {
+      .cs-strategy-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       BATCH ICON LIST — vertical list with icons matching design tokens
+    ------------------------------------------------------------------- */
+    .cs-batch-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      margin-top: 40px;
+    }
+
+    .cs-batch-item {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .cs-batch-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-accent-light);
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cs-batch-item__text h4 {
+      font-family: var(--font-heading);
+      font-size: var(--text-body-md);
+      font-weight: var(--weight-semibold);
+      color: var(--color-text-heading);
+      line-height: 1.3;
+    }
+
+    .cs-batch-item__text p {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-muted);
+      line-height: var(--lh-body);
+      margin-top: var(--space-xs);
+    }
+
+    /* -------------------------------------------------------------------
+       PROJECT INFO BAR — full width horizontal
+    ------------------------------------------------------------------- */
+    .cs-project-bar {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding-block: var(--space-lg);
+    }
+
+    .cs-project-bar__item {
+      padding-block: var(--space-md);
+      border-bottom: 0.75px solid var(--color-border);
+    }
+
+    .cs-project-bar__item:last-child { border-bottom: none; }
+
+    @media (min-width: 680px) {
+      .cs-project-bar {
+        grid-template-columns: repeat(5, 1fr);
+        padding-block: var(--space-xl);
+        align-items: start;
+      }
+
+      .cs-project-bar__item {
+        padding-block: 0;
+        padding-inline: var(--space-lg);
+        border-bottom: none;
+        border-right: 0.75px solid var(--color-border);
+      }
+
+      .cs-project-bar__item:first-child { padding-left: 0; }
+      .cs-project-bar__item:last-child  { border-right: none; }
+    }
+
+    /* -------------------------------------------------------------------
+       HERO
+    ------------------------------------------------------------------- */
+    .cs-hero {
+      padding-top: calc(var(--space-xxl) + var(--space-lg));
+      padding-bottom: 0;
+      border-top: 1.5px solid var(--color-text-heading);
+    }
+
+    .cs-hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-body);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      transition: color var(--transition-base);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cs-hero__back::before { content: '←'; }
+    .cs-hero__back:hover   { color: var(--color-text-heading); }
+
+    .cs-hero__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cs-hero__sub {
+      font-family: var(--font-body);
+      font-size: var(--text-body-lg);
+      font-weight: var(--weight-light);
+      line-height: var(--lh-body);
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin-top: var(--space-md);
+    }
+
+    .cs-cover {
+      margin-top: var(--space-xxl);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: var(--color-accent-light);
+      aspect-ratio: 16 / 7;
+    }
+
+    .cs-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* -------------------------------------------------------------------
+       BULLET LIST (hero outcome bullets)
+    ------------------------------------------------------------------- */
+    .cs-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .cs-bullet {
+      display: grid;
+      grid-template-columns: var(--space-lg) 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .cs-bullet::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      margin-top: 8px;
+      justify-self: center;
+    }
+
+    .cs-bullet p {
+      font-size: var(--text-body-md);
+      line-height: var(--lh-body);
+      color: var(--color-text-body);
+    }
+
+    /* -------------------------------------------------------------------
+       STATS ROW
+    ------------------------------------------------------------------- */
+    .cs-stats {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      padding-block: var(--space-xl);
+      border-top: 0.75px solid var(--color-border);
+      border-bottom: 0.75px solid var(--color-border);
+      margin-top: var(--space-xxl);
+    }
+
+    .cs-stat__number {
+      font-family: var(--font-heading);
+      font-size: var(--text-h1);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .cs-stat__label {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      line-height: var(--lh-small);
+    }
+
+    /* -------------------------------------------------------------------
+       BODY LAYOUT
+    ------------------------------------------------------------------- */
+    .cs-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xxl);
+      align-items: start;
+    }
+
+    /* On mobile sidebar moves above main content */
+    .cs-sidebar {
+      padding-top: 0;
+      order: -1;
+    }
+
+    .cs-sidebar__item {
+      padding-block: var(--space-md);
+      border-bottom: 0.75px solid var(--color-border);
+    }
+
+    .cs-sidebar__key {
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-xs);
+    }
+
+    .cs-sidebar__val {
+      font-size: var(--text-body-sm);
+      font-weight: var(--weight-medium);
+      color: var(--color-text-body);
+      line-height: var(--lh-small);
+    }
+
+    .cs-sidebar__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    /* -------------------------------------------------------------------
+       CONTENT RHYTHM
+    ------------------------------------------------------------------- */
+    .cs-content p + p { margin-top: var(--space-lg); }
+
+    .cs-content h3 {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text-heading);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .cs-pullquote {
+      border-left: 4px solid var(--color-accent);
+      padding-left: var(--space-lg);
+      margin-block: var(--space-xl);
+    }
+
+    .cs-pullquote p {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--color-text-heading);
+    }
+
+    .cs-list {
+      counter-reset: cs-counter;
+      margin-top: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .cs-list__item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .cs-list__item::before {
+      counter-increment: cs-counter;
+      content: counter(cs-counter, decimal-leading-zero);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-label);
+      color: var(--color-accent);
+      padding-top: 3px;
+    }
+
+    .cs-list__item p {
+      font-size: var(--text-body-md);
+      line-height: var(--lh-body);
+      color: var(--color-text-body);
+      margin-top: 0 !important;
+    }
+
+    /* -------------------------------------------------------------------
+       ASYMMETRIC FEATURE GRID
+       Left: one tall card | Right: two stacked cards
+    ------------------------------------------------------------------- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .feature-column-left,
+    .feature-column-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .feature-label { color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+
+    .feature-image-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* plain img (non-phone) inside feature-image-wrap */
+    .feature-image-wrap > img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-md);
+    }
+
+    /* phone mockup inside feature-image-wrap — fixed width, frame intact */
+    .feature-image-wrap .cs-phone-mockup {
+      width: 220px;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 680px) {
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+        gap: var(--space-xxl);
+      }
+
+      .feature-column-left { height: 100%; }
+
+      .feature-card--tall {
+        flex: 1;
+        height: 100%;
+        justify-content: flex-start;
+      }
+
+      .feature-card--tall .feature-image-wrap {
+        border-radius: var(--radius-md);
+        min-height: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .feature-column-right .feature-image-wrap .cs-phone-mockup {
+        width: 220px;
+      }
+
+      .feature-column-left .feature-image-wrap .cs-phone-mockup {
+        width: 220px;
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       FEATURE BLOCKS — alternating image/text layout
+    ------------------------------------------------------------------- */
+    .cs-feature-block {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+      margin-bottom: var(--space-xxl);
+    }
+
+    .cs-feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xxl);
+      margin-top: var(--space-xxl);
+    }
+
+    @media (min-width: 680px) {
+      .cs-feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .cs-feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .cs-feature-card__img {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .cs-feature-card__img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cs-feature-block__img {
+      border-radius: var(--radius-md);
+      display: flex;
+      justify-content: center;
+    }
+
+    .cs-feature-block__img img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+    }
+
+    @media (min-width: 680px) {
+      .cs-feature-block {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cs-feature-block__img img {
+        max-width: 100%;
+      }
+
+      .feature-image-wrap img {
+        max-width: 100%;
+      }
+
+      .cs-feature-block--reverse .cs-feature-block__img {
+        order: 2;
+      }
+
+      .cs-feature-block--reverse .cs-feature-block__text {
+        order: 1;
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       IMAGE PLACEHOLDERS
+    ------------------------------------------------------------------- */
+    .cs-img-wrap {
+      margin-block: var(--space-xl);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background-color: var(--color-accent-light);
+    }
+
+    .cs-img-wrap img { width: 100%; height: auto; display: block; }
+
+    .cs-img-wrap--placeholder {
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cs-img-wrap--placeholder span {
+      font-family: var(--font-body);
+      font-size: var(--text-body-sm);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .cs-img-caption {
+      font-size: var(--text-caption);
+      letter-spacing: var(--tracking-label);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      text-align: center;
+    }
+
+    /* -------------------------------------------------------------------
+       RESULTS
+    ------------------------------------------------------------------- */
+    .cs-results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .cs-result-card {
+      background-color: var(--color-bg-secondary);
+      border: 0.75px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .cs-result-card__number {
+      font-family: var(--font-heading);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-semibold);
+      color: var(--color-accent);
+      letter-spacing: var(--tracking-heading);
+      line-height: 1;
+    }
+
+    .cs-result-card__desc {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      line-height: var(--lh-body);
+    }
+
+    /* -------------------------------------------------------------------
+       NEXT CASE STUDY
+    ------------------------------------------------------------------- */
+    .cs-next {
+      border-top: 0.75px solid var(--color-border);
+      padding-top: var(--space-xxl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVE — Tablet
+    ------------------------------------------------------------------- */
+    @media (min-width: 680px) {
+      .cs-stats        { grid-template-columns: repeat(3, 1fr); }
+      .cs-results-grid { grid-template-columns: repeat(2, 1fr); }
+      .cs-next         { flex-direction: row; justify-content: space-between; align-items: center; }
+      .cs-listing-grid { grid-template-columns: 1fr 1fr 2fr; }
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVE — Desktop
+    ------------------------------------------------------------------- */
+    @media (min-width: 1024px) {
+      :root { --nav-height: 68px; }
+
+      .cs-layout {
+        grid-template-columns: 1fr 260px;
+        gap: var(--space-xxl);
+      }
+
+      .cs-sidebar {
+        position: sticky;
+        top: var(--scroll-offset);
+        order: 0;
+      }
+
+      .cs-results-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       MAIN NAV
+       ===================================================================== -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="site-nav__inner">
+        <a href="index.html" class="site-nav__logo" aria-label="Supanida Jennings, Home">
+          Supanida Jennings
+        </a>
+        <ul class="site-nav__links" role="list">
+          <li><a href="index.html#work"    class="nav-link">Work</a></li>
+          <li><a href="index.html#about"   class="nav-link">About</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================================================================
+       SUB-NAV
+       ===================================================================== -->
+  <nav class="subnav" role="navigation" aria-label="Case study sections">
+    <div class="container">
+      <div class="subnav__inner">
+        <a href="#overview"  class="subnav__link" data-section="overview">Overview</a>
+        <a href="#problem"   class="subnav__link" data-section="problem">Problem</a>
+        <a href="#strategy"  class="subnav__link" data-section="strategy">Strategy</a>
+        <a href="#solution"  class="subnav__link" data-section="solution">Solution</a>
+        <a href="#results"   class="subnav__link" data-section="results">Results</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================================================================
+       OVERVIEW — merged hero + overview, two-column (mirrors TiriVelo)
+       ===================================================================== -->
+  <section class="cs-hero" id="overview" aria-labelledby="heading-overview">
+    <div class="container">
+
+      <a href="index.html" class="cs-hero__back">All Work</a>
+
+      <div class="cs-hero-overview-grid cs-layout">
+
+        <!-- Left: all text content -->
+        <div>
+
+          <!-- Overview label sits above everything -->
+          <p class="section-label">Overview</p>
+
+          <h1 class="section-title animate-in animate-in--delay-1">FlyKind</h1>
+          <p class="caption animate-in animate-in--delay-1"
+             style="margin-top: var(--space-sm); color: var(--color-text-muted); letter-spacing: var(--tracking-label); text-transform: uppercase;">
+            UX Case Study
+          </p>
+
+          <p class="cs-hero__sub animate-in animate-in--delay-2" style="margin-top: var(--space-lg);">
+            FlyKind is a mobile-first ecommerce platform for sustainable fashion that uses material from upcycled parachutes. I designed the shopping experience by storytelling and a batch-based system that also supports marketing and production.
+          </p>
+
+          <div class="cs-bullets animate-in animate-in--delay-3" style="margin-top: var(--space-lg);">
+            <div class="cs-bullet"><p>28% increase in add-to-cart rate by improving product clarity and storytelling</p></div>
+            <div class="cs-bullet"><p>40% faster checkout with a simplified, mobile-first purchase flow</p></div>
+            <div class="cs-bullet"><p>Stronger trust and understanding of upcycled materials across all tested users</p></div>
+          </div>
+
+          <div class="cs-hero__tags" style="margin-top: var(--space-lg);">
+            <span class="tag">UX/UI Design</span>
+            <span class="tag">E-Commerce</span>
+            <span class="tag">Product System</span>
+            <span class="tag">Storytelling</span>
+          </div>
+
+          <!-- Overview text removed -->
+
+        </div>
+
+        <!-- Right: real iPhone 16 image with video behind screen -->
+        <div class="cs-hero-overview-img animate-in animate-in--delay-3">
+          <div class="cs-phone-hero">
+
+            <!-- Video positioned exactly behind the screen area -->
+            <video
+              class="cs-phone-hero__video"
+              autoplay
+              loop
+              muted
+              playsinline
+              aria-label="Hero screen recording of the FlyKind shopping experience"
+            >
+              <source src="flykind.mp4" type="video/mp4" />
+            </video>
+
+            <!-- iPhone 16 PNG frame overlaid on top -->
+            <img
+              class="cs-phone-hero__frame"
+              src="iphone16light.png"
+              alt=""
+              aria-hidden="true"
+            />
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       BODY — Problem section + sidebar (mirrors TiriVelo)
+       ===================================================================== -->
+  <div style="padding-top: 0; padding-bottom: var(--space-xl);">
+    <div class="container">
+      <div class="cs-layout">
+        <main>
+
+          <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+
+          <!-- PROBLEM -------------------------------------------------- -->
+          <section id="problem" aria-labelledby="heading-problem">
+            <p class="section-label">Problem</p>
+
+            <div class="cs-content" style="margin-top: 32px;">
+              <h2 class="section-title" id="heading-problem">
+                Shoppers lacked trust and clarity when buying products made from unfamiliar upcycled materials,
+              </h2>
+              <h2 class="subsection-title" style="margin-top: var(--space-sm);">
+                while the business also needed a clearer way to manage limited inventory and communicate availability.
+              </h2>
+
+              <!-- Design challenge -->
+              <div style="margin-top: 48px;">
+                <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-sm);">Design Challenge</h3>
+                <p class="body-text">
+                  Create a shopping experience that makes unfamiliar upcycled products easier to understand, more trustworthy, and more compelling to buy, while supporting the business's need for clearer inventory communication and production planning.
+                </p>
+              </div>
+
+            </div>
+          </section>
+
+        </main>
+
+        <!-- ── SIDEBAR ───────────────────────────────────────── -->
+        <aside class="cs-sidebar" aria-label="Project details">
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Role</p>
+            <p class="cs-sidebar__val">UX/UI Designer</p>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Platform</p>
+            <p class="cs-sidebar__val">Mobile Web (iOS + Android)</p>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Methods</p>
+            <ul style="margin-top: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs);" role="list">
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">User Interviews</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Usability Testing ×2</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Competitive Analysis</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Information Architecture</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Journey Mapping</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Iterative Design</li>
+            </ul>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Tools</p>
+            <ul style="margin-top: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs);" role="list">
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Figma</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">FigJam</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Usability Testing</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Photoshop</li>
+            </ul>
+          </div>
+
+          <div class="cs-sidebar__item" style="border-bottom: none;">
+            <p class="cs-sidebar__key">Focus</p>
+            <div class="cs-sidebar__pills" style="margin-top: var(--space-sm);">
+              <span class="tag">Trust</span>
+              <span class="tag">E-Commerce</span>
+              <span class="tag">Mobile-First</span>
+            </div>
+          </div>
+
+        </aside>
+
+      </div><!-- end cs-layout -->
+    </div><!-- end container -->
+  </div><!-- end problem wrapper -->
+
+  <!-- =====================================================================
+       STRATEGY — full width with cards (mirrors TiriVelo)
+       ===================================================================== -->
+  <div style="padding-bottom: var(--space-xl);">
+    <div class="container">
+
+      <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+
+      <!-- STRATEGY ------------------------------------------------- -->
+      <section id="strategy" aria-labelledby="heading-strategy">
+        <p class="section-label">Strategy</p>
+        <h2 class="subsection-title" id="heading-strategy">
+          To solve this, I introduced a batch model as the core structure behind the experience—helping the site better support how the product was made, sold, and communicated.
+        </h2>
+
+        <div class="cs-strategy-grid" style="margin-top: 40px;">
+
+          <!-- 1 Built trust -->
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Built trust through storytelling</h3>
+            <p class="body-text">
+              Built trust through storytelling around material origin and product uniqueness.
+            </p>
+          </div>
+
+          <!-- 2 Simplified mobile flow -->
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="13 17 18 12 13 7"/>
+                <polyline points="6 17 11 12 6 7"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Simplified the mobile shopping flow</h3>
+            <p class="body-text">
+              Simplified the mobile shopping flow so users can move faster and with more confidence.
+            </p>
+          </div>
+
+          <!-- 3 Full-width batch card -->
+          <div class="cs-strategy-card" style="grid-column: 1 / -1;">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Introduced a batch-based system</h3>
+            <p class="body-text">
+              Introduced a batch-based system to clearly show product availability and connect inventory, marketing, and production.
+            </p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       SOLUTION — full width (mirrors TiriVelo)
+       ===================================================================== -->
+  <div style="padding-bottom: var(--space-xl);">
+    <div class="container">
+
+          <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+
+          <!-- SOLUTION ------------------------------------------------- -->
+          <section id="solution" aria-labelledby="heading-solution">
+            <p class="section-label">Solution</p>
+
+            <!-- 2-column: SVG map left, heading + text + How It Works right -->
+            <div class="cs-feature-block" style="margin-top: 40px; grid-template-columns: 2fr 3fr; align-items: stretch;">
+              <div class="cs-feature-block__img" style="max-width: 100%; padding: 0; display: flex; align-items: center;">
+                <svg viewBox="0 0 480 1080" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; font-family: var(--font-body, 'Poppins', sans-serif);">
+                  <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                      <path d="M0,0 L10,3.5 L0,7" fill="none" stroke="#A65D3F" stroke-width="1.5"/>
+                    </marker>
+                  </defs>
+
+                  <!-- 1. Parachute Material -->
+                  <rect x="40" y="10" width="400" height="56" rx="10" fill="#FAF6F0" stroke="#A65D3F" stroke-width="1.5"/>
+                  <text x="240" y="44" text-anchor="middle" font-size="18" font-weight="600" fill="#1A0E07">Parachute Material</text>
+
+                  <line x1="240" y1="66" x2="240" y2="90" stroke="#A65D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                  <!-- 2. Internal Material Calculation -->
+                  <rect x="40" y="94" width="400" height="72" rx="10" fill="#FDFDFD" stroke="#DADADA" stroke-width="1"/>
+                  <text x="240" y="122" text-anchor="middle" font-size="16" font-weight="600" fill="#1A0E07">Internal Material Calculation</text>
+                  <text x="240" y="148" text-anchor="middle" font-size="14" fill="#637184">Used to plan batch availability</text>
+
+                  <line x1="240" y1="166" x2="240" y2="190" stroke="#A65D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                  <!-- 3. Batch Opens -->
+                  <rect x="40" y="194" width="400" height="96" rx="10" fill="#FAF6F0" stroke="#A65D3F" stroke-width="1.5"/>
+                  <text x="240" y="224" text-anchor="middle" font-size="18" font-weight="600" fill="#1A0E07">Batch Opens</text>
+                  <text x="240" y="250" text-anchor="middle" font-size="14" fill="#637184">Customers can order custom-made products</text>
+                  <text x="240" y="272" text-anchor="middle" font-size="14" fill="#637184">Each order subtracts material by product &amp; size</text>
+
+                  <line x1="240" y1="290" x2="240" y2="314" stroke="#A65D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                  <!-- 4. Live Batch Progress -->
+                  <rect x="40" y="318" width="400" height="72" rx="10" fill="#FDFDFD" stroke="#DADADA" stroke-width="1"/>
+                  <text x="240" y="346" text-anchor="middle" font-size="16" font-weight="600" fill="#1A0E07">Live Batch Progress</text>
+                  <text x="240" y="372" text-anchor="middle" font-size="14" fill="#637184">Shows batch status and what is available now</text>
+
+                  <line x1="240" y1="390" x2="240" y2="414" stroke="#A65D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                  <!-- 5. Auto-Close -->
+                  <rect x="40" y="418" width="400" height="72" rx="10" fill="#FDFDFD" stroke="#DADADA" stroke-width="1"/>
+                  <text x="240" y="446" text-anchor="middle" font-size="16" font-weight="600" fill="#1A0E07">Auto-Close When Batch Is Full</text>
+                  <text x="240" y="472" text-anchor="middle" font-size="14" fill="#637184">or when the batch period ends</text>
+
+                  <line x1="240" y1="490" x2="240" y2="514" stroke="#A65D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                  <!-- 6. Batch Closed -->
+                  <rect x="40" y="518" width="400" height="56" rx="10" fill="#FDFDFD" stroke="#DADADA" stroke-width="1"/>
+                  <text x="240" y="552" text-anchor="middle" font-size="18" font-weight="600" fill="#1A0E07">Batch Closed</text>
+
+                  <line x1="240" y1="574" x2="240" y2="598" stroke="#A65D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                  <!-- 7. Tag Lottery -->
+                  <rect x="40" y="602" width="400" height="72" rx="10" fill="#FAF6F0" stroke="#A65D3F" stroke-width="1.5"/>
+                  <text x="240" y="630" text-anchor="middle" font-size="16" font-weight="600" fill="#1A0E07">Tag Lottery</text>
+                  <text x="240" y="656" text-anchor="middle" font-size="14" fill="#637184">One order receives the original parachute tag</text>
+
+                  <line x1="240" y1="674" x2="240" y2="698" stroke="#A65D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                  <!-- 8. Production Starts -->
+                  <rect x="40" y="702" width="400" height="72" rx="10" fill="#1A0E07" stroke="none"/>
+                  <text x="240" y="730" text-anchor="middle" font-size="18" font-weight="600" fill="#FFFCF9">Production Starts</text>
+                  <text x="240" y="756" text-anchor="middle" font-size="14" fill="rgba(255,252,249,0.65)">All custom-made items move into production</text>
+
+                </svg>
+              </div>
+              <div class="cs-feature-block__text">
+                <h2 class="subsection-title" id="heading-solution" style="margin-bottom: var(--space-lg);">
+                  Batch System
+                </h2>
+                <p class="body-text">
+                  I used the limited parachute material as part of the experience. The batch-based system made availability clearer for shoppers and helped the business manage inventory, marketing, and production. Original tags and markings also became part of the story, with a lottery-style feature that made some pieces feel even more special.
+                </p>
+
+                <h4 class="card-title" style="margin-top: var(--space-xl);">How it works</h4>
+                <ol class="cs-list" role="list" style="margin-top: var(--space-lg);">
+                  <li class="cs-list__item">
+                    <p><strong>Each parachute defines a limited batch</strong> based on the total material available, with multiple product types drawing from the same shared material pool</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Batch progress updates in real time</strong> so shoppers know what they can still order, and the batch closes when capacity is reached or the order window ends</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Once the batch closes, production begins</strong></p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Some stock items are created from buffer or leftover material</strong> combined across batches, reducing waste while enabling a small number of ready-to-ship pieces</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>One piece in each batch includes the original parachute tag,</strong> adding rarity and creating a storytelling moment</p>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- ── PRODUCT LISTING SUBSECTION ────────────────────── -->
+            <div style="margin-top: 100px;">
+              <h2 class="subsection-title">
+                Building Trust Through a More Transparent Product Experience
+              </h2>
+
+              <p class="body-text" style="margin-top: 32px;">
+                Shoppers loved the idea of upcycled parachute products, but they needed more clarity to feel confident buying them. I redesigned the listing experience to make each product feel more real, easier to understand, and easier to compare, while also helping the business communicate limited inventory more clearly.
+              </p>
+
+              <div class="feature-grid" style="margin-top: 48px;">
+                <div class="feature-column-left">
+                  <div class="feature-card feature-card--tall">
+                    <p class="feature-label caption">Listing 1</p>
+                    <div class="feature-image-wrap">
+                      <div class="cs-phone-mockup">
+                        <img class="cs-phone-mockup__screen" src="Listing1.png" alt="FlyKind product listing showing individual items with color swatches, batch name, and pricing" loading="lazy" />
+                        <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="feature-column-right">
+                  <div class="feature-card">
+                    <p class="feature-label caption">Listing 2</p>
+                    <div class="feature-image-wrap">
+                      <div class="cs-phone-mockup">
+                        <img class="cs-phone-mockup__screen" src="listing2.png" alt="FlyKind product listing with size filter, multiple product images, and batch labels" loading="lazy" />
+                        <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: var(--space-xl);">
+                <ol class="cs-list" role="list">
+                  <li class="cs-list__item">
+                    <p><strong>Made each piece feel distinct.</strong> Instead of grouped listings, I used individual product listings so shoppers could see the real differences created by each parachute cut.</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Focused on what shoppers looked for first.</strong> Research showed that photo, price, and size/fit mattered most early on, so those details were prioritized in the browsing experience.</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Reduced hidden information.</strong> Instead of swipe-only galleries, I used thumbnails so key details like material and variation were easier to see at a glance.</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Improved clarity around availability.</strong> Size filters and a clearer listing structure made products easier to compare and helped the business communicate limited inventory more honestly.</p>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- ── TRANSPARENCY & STORYTELLING SUBSECTION ──────────── -->
+            <div style="margin-top: 100px;">
+              <h2 class="subsection-title">
+                Using Storytelling to Make the Product Easier to Understand
+              </h2>
+
+              <p class="body-text" style="margin-top: 32px;">
+                FlyKind's upcycled materials needed more context to feel clear and trustworthy. I used storytelling to bring the material's origin and transformation into the shopping experience.
+              </p>
+
+              <div class="feature-grid" style="margin-top: 48px;">
+                <div class="feature-column-left">
+                  <div class="feature-card feature-card--tall">
+                    <p class="feature-label caption">Custom made</p>
+                    <div class="feature-image-wrap">
+                      <div class="cs-phone-mockup">
+                        <img class="cs-phone-mockup__screen" src="chutelisting.jpg" alt="Product detail page showing batch name, parachute source imagery, and expandable specs" loading="lazy" />
+                        <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="feature-column-right">
+                  <div class="feature-card">
+                    <p class="feature-label caption">Standard product</p>
+                    <div class="feature-image-wrap">
+                      <div class="cs-phone-mockup">
+                        <img class="cs-phone-mockup__screen" src="chutebatch.png" alt="Choose your chute screen showing parachute selection with batch details and closing date" loading="lazy" />
+                        <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top: var(--space-xl);">
+                <ol class="cs-list" role="list">
+                  <li class="cs-list__item">
+                    <p><strong>Integrated the parachute's story</strong> into the shopping experience through batch details, source imagery, and before-to-after context</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Showed the making process</strong> as part of the story so shoppers could better understand what made each piece unique</p>
+                  </li>
+                  <li class="cs-list__item">
+                    <p><strong>Carried that storytelling across</strong> both custom-made and standard product flows to create a clearer, more meaningful, and more trustworthy experience</p>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- ── CHECKOUT SUBSECTION ──────────────────────────── -->
+            <div style="margin-top: 100px;">
+              <h2 class="subsection-title">
+                Guiding Users Through Checkout
+              </h2>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xxl); margin-top: 48px; align-items: start;">
+                <div>
+                  <p class="body-text">
+                    To I designed the checkout flow to be easier to follow. Keeping guidance and pricing visible helped shoppers understand the process and cost without losing momentum.
+                  </p>
+                  <ol class="cs-list" role="list" style="margin-top: var(--space-lg);">
+                    <li class="cs-list__item">
+                      <p><strong>Sticky total</strong> — kept pricing and checkout visible</p>
+                    </li>
+                    <li class="cs-list__item">
+                      <p><strong>Sticky instruction</strong> — clarified the batch process at key moments</p>
+                    </li>
+                    <li class="cs-list__item">
+                      <p><strong>Add-on pricing</strong> — used a familiar "pizza menu" pattern to make extras and their costs easier to understand</p>
+                    </li>
+                    <li class="cs-list__item">
+                      <p><strong>Progress bar</strong> — made the flow feel easier to follow</p>
+                    </li>
+                  </ol>
+                </div>
+                <div>
+                  <div class="feature-image-wrap">
+                    <div class="cs-phone-mockup">
+                      <img class="cs-phone-mockup__screen" src="sticky.png" alt="Product customization flow with sticky instruction bar showing subtotal and next step" loading="lazy" />
+                      <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+
+          <!-- RESULTS -------------------------------------------------- -->
+          <section id="results" aria-labelledby="heading-results">
+            <p class="section-label">Results</p>
+            <h2 class="subsection-title" id="heading-results">
+              Clarity drove conversion.
+            </h2>
+
+            <div class="cs-content" style="margin-top: 32px;">
+              <p class="body-text">
+                Prototype testing with five participants — including two returning FlyKind customers and three new users recruited for the study — showed measurable improvement across every key metric.
+              </p>
+
+              <div class="cs-results-grid">
+                <div class="cs-result-card">
+                  <p class="cs-result-card__number">28%</p>
+                  <p class="cs-result-card__desc">Increase in add-to-cart rate in prototype testing vs. original flow</p>
+                </div>
+                <div class="cs-result-card">
+                  <p class="cs-result-card__number">5/5</p>
+                  <p class="cs-result-card__desc">Participants understood the material origin story without prompting</p>
+                </div>
+                <div class="cs-result-card">
+                  <p class="cs-result-card__number">40%</p>
+                  <p class="cs-result-card__desc">Reduction in checkout task completion time vs. existing experience</p>
+                </div>
+              </div>
+
+              <p class="body-text" style="margin-top: var(--space-lg);">
+                FlyKind reminded me that even though e-commerce has many best practices, no pattern is truly one size fits all. The brand's one-of-a-kind materials and batch-based model created trust questions that standard shopping flows could not fully solve. Doing FlyKind-specific research made those needs visible early, so the experience could be shaped around real expectations instead of assumptions.
+              </p>
+
+              <p class="body-text" style="margin-top: var(--space-lg);">
+                It also reminded me why UX/UI matters. Design helps connect the reality of a business to an experience that feels clear, honest, and trustworthy for the customer. When research shapes the structure, language, and interactions, the product does not just look better — it works better for both the user and the brand.
+              </p>
+            </div>
+          </section>
+
+          <!-- NEXT -------------------------------------------------------- -->
+          <div class="cs-next" style="margin-top: var(--space-xxl); justify-content: space-between;">
+            <div>
+              <p class="caption">← Previous case study</p>
+              <p class="card-title" style="margin-top: var(--space-sm);">TiriVelo</p>
+              <p class="small-text" style="margin-top: var(--space-xs);">Provider experience for a pet care marketplace</p>
+              <a href="tirivelo.html" class="button-secondary" style="margin-top: var(--space-md);">View TiriVelo</a>
+            </div>
+            <div style="text-align: right;">
+              <p class="caption">Next case study →</p>
+              <p class="card-title" style="margin-top: var(--space-sm);">Thai Tongue</p>
+              <p class="small-text" style="margin-top: var(--space-xs);">Structured tone-learning for Thai language learners</p>
+              <a href="thai-tongue.html" class="button-primary" style="margin-top: var(--space-md);">View Thai Tongue</a>
+            </div>
+          </div>
+
+    </div><!-- end container -->
+  </div><!-- end full-width solution wrapper -->
+
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__top">
+          <div class="stack-sm">
+            <p class="footer__brand">Supanida Jennings</p>
+            <p class="footer__tagline">UX Designer. Designing structured systems that feel simple.</p>
+          </div>
+          <ul class="footer__links" role="list">
+            <li>
+              <a href="https://www.linkedin.com/in/supanida-jennings" class="footer__link footer__link--icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </li>
+            <li><a href="/cdn-cgi/l/email-protection#492622202c27262b202c092e24282025672a2624" class="footer__link">Email</a></li>
+          </ul>
+        </div>
+        <div class="footer__bottom">
+          <span>© 2026 Supanida Jennings</span>
+          <span>UX Portfolio</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- =====================================================================
+       JS — Active subnav (Intersection Observer)
+       ===================================================================== -->
+  <script>
+    (function () {
+      const links    = document.querySelectorAll('.subnav__link[data-section]');
+      const sections = document.querySelectorAll('section[id]');
+      if (!links.length || !sections.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              links.forEach((link) => {
+                link.classList.toggle('is-active', link.dataset.section === id);
+              });
+            }
+          });
+        },
+        { rootMargin: '-120px 0px -70% 0px', threshold: 0 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    })();
+  </script>
+
+</body>
+</html>
