@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Thai Tongue UX Case Study by Supanida Jennings. Designing an AI-powered Thai language learning app with culturally grounded, tone-aware experiences." />
+  <title>Thai Tongue — Supanida Jennings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="supanida.css" />
+
+  <style>
+    /* =======================================================================
+       THAI TONGUE CASE STUDY — Additive styles only.
+       Every token, color, font, and spacing value comes from supanida.css.
+       Mirrors flykind_2.html exactly.
+       ======================================================================= */
+
+    :root {
+      --nav-height:    64px;
+      --subnav-height: 48px;
+      --scroll-offset: calc(var(--nav-height) + var(--subnav-height) + 20px);
+    }
+
+    html { scroll-padding-top: var(--scroll-offset); }
+
+    /* -------------------------------------------------------------------
+       SUB-NAV
+    ------------------------------------------------------------------- */
+    .subnav {
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 90;
+      background-color: rgba(253, 253, 253, 0.92);
+      border-bottom: 0.75px solid var(--color-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .subnav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xl);
+      height: var(--subnav-height);
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .subnav__inner::-webkit-scrollbar { display: none; }
+
+    .subnav__link {
+      font-family: var(--font-body);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      padding-bottom: 2px;
+      position: relative;
+      flex-shrink: 0;
+      transition: color var(--transition-base);
+    }
+
+    .subnav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background-color: var(--color-text-heading);
+      transition: width var(--transition-base);
+    }
+
+    .subnav__link:hover              { color: var(--color-text-heading); }
+    .subnav__link.is-active          { color: var(--color-text-heading); }
+    .subnav__link.is-active::after   { width: 100%; }
+
+    /* -------------------------------------------------------------------
+       iPHONE 16 — iphone16light.png (383x785px)
+    ------------------------------------------------------------------- */
+    .cs-phone-hero {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      margin-inline: auto;
+      aspect-ratio: 383 / 785;
+    }
+
+    .cs-phone-hero__frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .cs-phone-hero__video {
+      position: absolute;
+      left:      50%;
+      top:       50%;
+      transform: translate(-50%, -50%);
+      width:     93.734%;
+      height:    96.943%;
+      object-fit: fill;
+      border-radius: 16px;
+      display:   block;
+      z-index:   1;
+      background: #ffffff;
+    }
+
+    @media (min-width: 768px) {
+      .cs-phone-hero {
+        max-width: 260px;
+        width: 260px;
+        position: sticky;
+        top: var(--scroll-offset);
+      }
+    }
+
+    /* -------------------------------------------------------------------
+       PHONE MOCKUP — static screenshot inside iPhone 16 frame
+    ------------------------------------------------------------------- */
+    .cs-phone-mockup {
+      position: relative;
+      width: 100%;
+      margin-inline: auto;
+      aspect-ratio: 383 / 785;
+    }
+
+    .cs-phone-mockup__frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .cs-phone-mockup__screen {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 93.734%;
+      height: 96.943%;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 16px;
+      display: block;
+      z-index: 1;
+      background: #ffffff;
+    }
+
+    /* -------------------------------------------------------------------
+       OVERVIEW TWO-COLUMN GRID
+    ------------------------------------------------------------------- */
+    .cs-hero-overview-grid {
+      align-items: start;
+      margin-top: var(--space-lg);
+      gap: var(--space-lg);
+    }
+
+    .cs-hero-overview-img {
+      display: block;
+    }
+
+    /* -------------------------------------------------------------------
+       HERO
+    ------------------------------------------------------------------- */
+    .cs-hero {
+      padding-top: calc(var(--space-xxl) + var(--space-lg));
+      padding-bottom: 0;
+      border-top: 1.5px solid var(--color-text-heading);
+    }
+
+    .cs-hero__back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-body);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      transition: color var(--transition-base);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cs-hero__back::before { content: '←'; }
+    .cs-hero__back:hover   { color: var(--color-text-heading); }
+
+    .cs-hero__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .cs-hero__sub {
+      font-family: var(--font-body);
+      font-size: var(--text-body-lg);
+      font-weight: var(--weight-light);
+      line-height: var(--lh-body);
+      color: var(--color-text-muted);
+      max-width: 600px;
+      margin-top: var(--space-md);
+    }
+
+    /* -------------------------------------------------------------------
+       BULLET LIST
+    ------------------------------------------------------------------- */
+    .cs-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .cs-bullet {
+      display: grid;
+      grid-template-columns: var(--space-lg) 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .cs-bullet::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      margin-top: 8px;
+      justify-self: center;
+    }
+
+    .cs-bullet p {
+      font-size: var(--text-body-md);
+      line-height: var(--lh-body);
+      color: var(--color-text-body);
+    }
+
+    /* -------------------------------------------------------------------
+       BODY LAYOUT
+    ------------------------------------------------------------------- */
+    .cs-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xxl);
+      align-items: start;
+    }
+
+    .cs-sidebar {
+      padding-top: 0;
+      order: -1;
+    }
+
+    .cs-sidebar__item {
+      padding-block: var(--space-md);
+      border-bottom: 0.75px solid var(--color-border);
+    }
+
+    .cs-sidebar__key {
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-xs);
+    }
+
+    .cs-sidebar__val {
+      font-size: var(--text-body-sm);
+      font-weight: var(--weight-medium);
+      color: var(--color-text-body);
+      line-height: var(--lh-small);
+    }
+
+    .cs-sidebar__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    /* -------------------------------------------------------------------
+       CONTENT
+    ------------------------------------------------------------------- */
+    .cs-content p + p { margin-top: var(--space-lg); }
+
+    .cs-pullquote {
+      border-left: 4px solid var(--color-accent);
+      padding-left: var(--space-lg);
+      margin-block: var(--space-xl);
+    }
+
+    .cs-pullquote p {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--color-text-heading);
+    }
+
+    /* -------------------------------------------------------------------
+       ORDERED LIST
+    ------------------------------------------------------------------- */
+    .cs-list {
+      counter-reset: cs-counter;
+      margin-top: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .cs-list__item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: var(--space-md);
+      align-items: start;
+    }
+
+    .cs-list__item::before {
+      counter-increment: cs-counter;
+      content: counter(cs-counter, decimal-leading-zero);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-label);
+      color: var(--color-accent);
+      padding-top: 3px;
+    }
+
+    .cs-list__item p {
+      font-size: var(--text-body-md);
+      line-height: var(--lh-body);
+      color: var(--color-text-body);
+      margin-top: 0 !important;
+    }
+
+    /* -------------------------------------------------------------------
+       STRATEGY CARDS
+    ------------------------------------------------------------------- */
+    .cs-strategy-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .cs-strategy-card {
+      background-color: var(--color-bg-secondary);
+      border: 0.75px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .cs-strategy-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-accent-light);
+      color: var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      flex-shrink: 0;
+    }
+
+    .cs-strategy-card__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-h3);
+      font-weight: var(--weight-medium);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text-heading);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* -------------------------------------------------------------------
+       FEATURE BLOCK — SVG diagram + text
+    ------------------------------------------------------------------- */
+    .cs-feature-block {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+      margin-bottom: var(--space-xxl);
+    }
+
+    .cs-feature-block__img {
+      border-radius: var(--radius-md);
+      display: flex;
+      justify-content: center;
+    }
+
+    .cs-feature-block__img img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+    }
+
+    /* -------------------------------------------------------------------
+       RESULTS
+    ------------------------------------------------------------------- */
+    .cs-results-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+
+    .cs-result-card {
+      background-color: var(--color-bg-secondary);
+      border: 0.75px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+    }
+
+    .cs-result-card__number {
+      font-family: var(--font-heading);
+      font-size: var(--text-h2);
+      font-weight: var(--weight-semibold);
+      color: var(--color-accent);
+      letter-spacing: var(--tracking-heading);
+      line-height: 1;
+    }
+
+    .cs-result-card__desc {
+      font-size: var(--text-body-sm);
+      color: var(--color-text-muted);
+      margin-top: var(--space-sm);
+      line-height: var(--lh-body);
+    }
+
+    /* -------------------------------------------------------------------
+       NEXT
+    ------------------------------------------------------------------- */
+    .cs-next {
+      border-top: 0.75px solid var(--color-border);
+      padding-top: var(--space-xxl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVE — Tablet
+    ------------------------------------------------------------------- */
+    @media (min-width: 680px) {
+      .cs-strategy-grid  { grid-template-columns: repeat(2, 1fr); }
+      .cs-results-grid   { grid-template-columns: repeat(2, 1fr); }
+      .cs-next           { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+
+    /* -------------------------------------------------------------------
+       RESPONSIVE — Desktop
+    ------------------------------------------------------------------- */
+    @media (min-width: 1024px) {
+      :root { --nav-height: 68px; }
+
+      .cs-layout {
+        grid-template-columns: 1fr 260px;
+        gap: var(--space-xxl);
+      }
+
+      .cs-sidebar {
+        position: sticky;
+        top: var(--scroll-offset);
+        order: 0;
+      }
+
+      .cs-results-grid   { grid-template-columns: repeat(3, 1fr); }
+
+      .cs-feature-block  { grid-template-columns: 0.5fr 1fr; }
+      .cs-feature-block__img img { max-width: 100%; }
+    }
+    /* -------------------------------------------------------------------
+       ASYMMETRIC FEATURE GRID — matches FlyKind exactly
+    ------------------------------------------------------------------- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .feature-column-left,
+    .feature-column-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .feature-card {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .feature-label { color: var(--color-text-muted); margin-bottom: var(--space-sm); }
+
+    .feature-image-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .feature-image-wrap > img {
+      width: 100%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      border-radius: var(--radius-md);
+    }
+
+    .feature-image-wrap .cs-phone-mockup {
+      width: 216.7px;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 680px) {
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: stretch;
+        gap: var(--space-xxl);
+      }
+
+      .feature-column-left { height: 100%; }
+
+      .feature-card--tall {
+        flex: 1;
+        height: 100%;
+        justify-content: flex-start;
+      }
+
+      .feature-card--tall .feature-image-wrap {
+        border-radius: var(--radius-md);
+        min-height: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .feature-column-right .feature-image-wrap .cs-phone-mockup {
+        width: 216.7px;
+      }
+
+      .feature-column-left .feature-image-wrap .cs-phone-mockup {
+        width: 216.7px;
+      }
+    }
+
+    /* Phone frame sized to match Thai Tongue screen images (402x874 ratio) */
+    .cs-phone-mockup--tt {
+      position: relative;
+      width: 100%;
+      margin-inline: auto;
+      aspect-ratio: 402 / 874;
+    }
+
+    .cs-phone-mockup--tt .cs-phone-mockup__frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .cs-phone-mockup--tt .cs-phone-mockup__screen {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 93.734%;
+      height: 96.943%;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 16px;
+      display: block;
+      z-index: 1;
+      background: #ffffff;
+    }
+
+    .feature-image-wrap .cs-phone-mockup--tt {
+      width: 216.7px;
+      flex-shrink: 0;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       MAIN NAV
+       ===================================================================== -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <div class="site-nav__inner">
+        <a href="index.html" class="site-nav__logo" aria-label="Supanida Jennings, Home">
+          Supanida Jennings
+        </a>
+        <ul class="site-nav__links" role="list">
+          <li><a href="index.html#work"    class="nav-link">Work</a></li>
+          <li><a href="index.html#about"   class="nav-link">About</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================================================================
+       SUB-NAV
+       ===================================================================== -->
+  <nav class="subnav" role="navigation" aria-label="Case study sections">
+    <div class="container">
+      <div class="subnav__inner">
+        <a href="#overview"  class="subnav__link" data-section="overview">Overview</a>
+        <a href="#problem"   class="subnav__link" data-section="problem">Problem</a>
+        <a href="#strategy"  class="subnav__link" data-section="strategy">Strategy</a>
+        <a href="#solution"  class="subnav__link" data-section="solution">Solution</a>
+        <a href="#results"   class="subnav__link" data-section="results">Reflection</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================================================================
+       OVERVIEW — merged hero + overview, two-column (mirrors FlyKind)
+       ===================================================================== -->
+  <section class="cs-hero" id="overview" aria-labelledby="heading-overview">
+    <div class="container">
+
+      <!-- Back link + section label sit ABOVE the two-column grid -->
+      <a href="index.html" class="cs-hero__back">All Work</a>
+      <p class="section-label" style="margin-bottom: var(--space-md);">Overview</p>
+
+      <!-- Grid starts at h1 so phone top-aligns with "Thai Tongue" -->
+      <div class="cs-hero-overview-grid cs-layout">
+
+        <!-- Left: text starting at h1 -->
+        <div>
+
+          <h1 class="section-title animate-in animate-in--delay-1">Thai Tongue</h1>
+          <p class="caption animate-in animate-in--delay-1"
+             style="margin-top: var(--space-sm); color: var(--color-text-muted); letter-spacing: var(--tracking-label); text-transform: uppercase;">
+            UX Case Study
+          </p>
+
+          <p class="cs-hero__sub animate-in animate-in--delay-2" style="margin-top: var(--space-lg);">
+            Learning Thai is challenging, not just because of vocabulary, but because of tones, cultural nuance, and lack of contextual learning in most apps. Thai Tongue was designed to make learning feel more natural and engaging by combining structured guidance with real-world cultural understanding.
+          </p>
+
+          <div class="cs-bullets animate-in animate-in--delay-3" style="margin-top: var(--space-lg);">
+            <div class="cs-bullet"><p>5/5 participants improved tone awareness after guided pronunciation practice</p></div>
+            <div class="cs-bullet"><p>Faster lesson completion with a more intuitive, mobile-first learning flow</p></div>
+            <div class="cs-bullet"><p>Stronger learner confidence through culturally grounded and contextual learning experience</p></div>
+          </div>
+
+          <div class="cs-hero__tags" style="margin-top: var(--space-lg);">
+            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">E-Learning</span>
+            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">Intuitive Learning</span>
+            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">AI + Human Hybrid</span>
+            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">Culturally Grounded Experience</span>
+          </div>
+
+        </div>
+
+        <!-- Right: iPhone 16 with video — top-aligns with h1 -->
+        <div class="cs-hero-overview-img animate-in animate-in--delay-3">
+          <div class="cs-phone-hero">
+
+            <video
+              class="cs-phone-hero__video"
+              autoplay
+              loop
+              muted
+              playsinline
+              aria-label="Hero screen recording of the Thai Tongue learning experience"
+            >
+              <source src="TT.mp4" type="video/mp4" />
+            </video>
+
+            <img
+              class="cs-phone-hero__frame"
+              src="iphone16light.png"
+              alt=""
+              aria-hidden="true"
+            />
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =====================================================================
+       BODY — Problem section + sidebar
+       ===================================================================== -->
+  <div style="padding-top: var(--space-xxl); padding-bottom: var(--space-xl);">
+    <div class="container">
+      <div class="cs-layout">
+        <main>
+
+          <hr style="margin-block: var(--space-xxl);" />
+
+          <!-- PROBLEM -------------------------------------------------- -->
+          <section id="problem" aria-labelledby="heading-problem">
+            <p class="section-label">Problem</p>
+
+            <div class="cs-content" style="margin-top: var(--space-lg);">
+              <h2 class="subsection-title" id="heading-problem">
+                Most language learning apps focus on vocabulary and repetition, but Thai learners often struggle with tones, pronunciation, and cultural context.
+              </h2>
+
+              <p class="body-text" style="margin-top: var(--space-lg);">
+                Which are essential to real communication and often under-supported in existing tools. Few engaging platforms bring all of these needs together in one place, so learners are left switching between apps for lessons, feedback, and real interaction. This makes it harder for learners to stay consistent and build confidence over time.
+              </p>
+
+              <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-top: 40px; margin-bottom: var(--space-lg);">Early research showed that</h3>
+
+              <ol class="cs-list" role="list">
+                <li class="cs-list__item">
+                  <p>Learners found tones to be one of the biggest barriers to speaking confidently</p>
+                </li>
+                <li class="cs-list__item">
+                  <p>Existing tools offered limited support for pronunciation feedback and cultural context</p>
+                </li>
+                <li class="cs-list__item">
+                  <p>The learning experience often felt disconnected, with no clear hybrid model combining self-paced learning and human interaction</p>
+                </li>
+                <li class="cs-list__item">
+                  <p>Users wanted something more interactive and motivating than passive lesson-based platforms</p>
+                </li>
+                <li class="cs-list__item">
+                  <p>The gap between learning in an app and using Thai in real life made it harder to build confidence</p>
+                </li>
+              </ol>
+
+              <!-- Research photo -->
+              <div style="margin-top: var(--space-xl); border-radius: var(--radius-md); overflow: hidden;">
+                <img
+                  src="tt-research-1.jpeg"
+                  alt="Small-group Thai learning session — instructor at whiteboard teaching tones to seated participants outdoors"
+                  loading="lazy"
+                  style="width: 100%; height: 320px; object-fit: cover; object-position: center 30%; display: block; filter: saturate(0.55) brightness(0.97) contrast(1.04);"
+                />
+              </div>
+              <p style="font-size: var(--text-caption); letter-spacing: var(--tracking-label); color: var(--color-text-muted); margin-top: var(--space-sm);">
+                Ran small-group learning sessions to observe pronunciation challenges, interaction patterns, and how learners respond to different types of feedback.
+              </p>
+
+              <div class="cs-pullquote">
+                <p>"I never know if I'm saying it right. The app just moves me forward even when I'm wrong."</p>
+              </div>
+
+            </div>
+          </section>
+
+        </main>
+
+        <!-- ── SIDEBAR ───────────────────────────────────────── -->
+        <aside class="cs-sidebar" aria-label="Project details">
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Role</p>
+            <p class="cs-sidebar__val">UX/UI Designer</p>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Platform</p>
+            <p class="cs-sidebar__val">iOS Mobile App</p>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Methods</p>
+            <ul style="margin-top: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs);" role="list">
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">User Interviews</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Usability Testing (2 rounds)</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Competitive Analysis</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Affinity Mapping</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Journey Mapping</li>
+            </ul>
+          </div>
+
+          <div class="cs-sidebar__item">
+            <p class="cs-sidebar__key">Tools</p>
+            <ul style="margin-top: var(--space-sm); display: flex; flex-direction: column; gap: var(--space-xs);" role="list">
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Figma</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">FigJam</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Maze</li>
+              <li style="font-size: var(--text-body-sm); color: var(--color-text-body);">Miro</li>
+            </ul>
+          </div>
+
+          <div class="cs-sidebar__item" style="border-bottom: none;">
+            <p class="cs-sidebar__key">Focus</p>
+            <div class="cs-sidebar__pills" style="margin-top: var(--space-sm);">
+              <span class="tag">EdTech</span>
+              <span class="tag">AI + Human</span>
+              <span class="tag">Mobile-First</span>
+            </div>
+          </div>
+
+        </aside>
+
+      </div><!-- end cs-layout -->
+    </div><!-- end container -->
+  </div><!-- end problem wrapper -->
+
+
+  <!-- =====================================================================
+       STRATEGY — full width with cards
+       ===================================================================== -->
+  <div style="padding-bottom: var(--space-xl);">
+    <div class="container">
+
+      <hr style="margin-block: var(--space-xxl);" />
+
+      <section id="strategy" aria-labelledby="heading-strategy">
+        <p class="section-label">Strategy</p>
+        <h2 class="subsection-title" id="heading-strategy">
+          To make learning Thai more effective and engaging, I focused on creating a system that adapts to each learner while supporting both independent practice and real interaction.
+        </h2>
+
+        <div class="cs-strategy-grid" style="margin-top: var(--space-lg);">
+
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Personalized learning paths</h3>
+            <p class="body-text">
+              Customizable topics and skill levels make the content more relevant to each learner, helping them stay engaged and progress at their own pace.
+            </p>
+          </div>
+
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">AI feedback with human support</h3>
+            <p class="body-text">
+              Real-time AI feedback helps learners improve tone and pronunciation, with the option to book 1:1 sessions for deeper guidance and confidence.
+            </p>
+          </div>
+
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Peer learning through shared practice</h3>
+            <p class="body-text">
+              Lab sessions connect learners at a similar level to practice conversation together in a low-pressure environment.
+            </p>
+          </div>
+
+          <div class="cs-strategy-card">
+            <div class="cs-strategy-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <h3 class="cs-strategy-card__title">Culturally grounded learning</h3>
+            <p class="body-text">
+              Cultural context is integrated into lessons to help learners understand not just what to say, but how and when to use it in real situations.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+
+  <!-- =====================================================================
+       SOLUTION — full width
+       ===================================================================== -->
+  <div style="padding-bottom: var(--space-xl);">
+    <div class="container">
+
+      <hr style="margin-block: var(--space-xxl);" />
+
+      <section id="solution" aria-labelledby="heading-solution">
+        <p class="section-label">Solution</p>
+
+        <!-- ── PERSONALIZED LEARNING PATHS ──────────────────────── -->
+        <div style="margin-top: 40px;">
+          <h2 class="subsection-title">
+            Personalized Learning Paths
+          </h2>
+
+          <p class="body-text" style="margin-top: 32px;">
+            To make learning feel more relevant and easier to stick with, I designed a system that lets learners shape both what they learn and how they practice.
+          </p>
+
+          <div class="feature-grid" style="margin-top: 48px;">
+
+            <!-- LEFT — Customizable Skill Focus -->
+            <div class="feature-column-left">
+              <div class="feature-card feature-card--tall">
+                <p class="feature-label caption">Customizable Skill Focus</p>
+                <div class="feature-image-wrap">
+                  <div class="cs-phone-mockup">
+                    <img class="cs-phone-mockup__screen" src="Customize_3.jpg" alt="Skill focus screen letting learners adjust slider emphasis on listening, speaking, writing, and reading" loading="lazy" />
+                    <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                  </div>
+                </div>
+                <div class="feature-text-wrap" style="margin-top: var(--space-sm);">
+                  <p class="feature-description body-text" style="margin-top: var(--space-sm);">
+                    Learners can put more focus on the skills they want to improve most, such as listening, speaking, reading, or writing. This helps the experience feel more aligned with their goals and practice needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT — Topic-Based Personalization -->
+            <div class="feature-column-right">
+              <div class="feature-card">
+                <p class="feature-label caption">Topic-Based Personalization</p>
+                <div class="feature-image-wrap">
+                  <div class="cs-phone-mockup">
+                    <img class="cs-phone-mockup__screen" src="Customize_4.jpg" alt="Topic bubble screen letting learners prioritize subjects like food, work, hobby, or cultural topics" loading="lazy" />
+                    <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                  </div>
+                </div>
+                <div class="feature-text-wrap" style="margin-top: var(--space-sm);">
+                  <p class="feature-description body-text" style="margin-top: var(--space-sm);">
+                    Learners can also choose topics that matter to them, like food, work, or culture. Making lessons feel more personally relevant helps keep practice engaging and easier to stay consistent with.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── JOURNEY HOME SCREEN SUBSECTION ──────────────────── -->
+        <div style="margin-top: 100px;">
+          <h2 class="subsection-title">
+            A Learning Journey That Feels Ongoing
+          </h2>
+
+          <p class="body-text" style="margin-top: 32px;">
+            To make learning feel more engaging and easier to return to, I designed the home screen as a perspective path that turns lessons into a visible journey rather than a static list. The screen also acts as a window into Thailand, using changing surroundings to connect the learning experience to culture and topic in a more immersive way.
+          </p>
+
+          <div class="cs-feature-block" style="margin-top: 48px; grid-template-columns: 0.5fr 1fr;">
+            <div class="cs-feature-block__img" style="max-width: 100%; padding: 0;">
+              <div class="feature-image-wrap">
+                <div class="cs-phone-mockup--tt">
+                  <img class="cs-phone-mockup__screen" src="Home.jpg" alt="Thai Tongue home screen showing a perspective path journey through a Thai landscape with lesson stones" loading="lazy" />
+                  <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                </div>
+              </div>
+            </div>
+            <div class="cs-feature-block__text">
+              <ol class="cs-list" role="list">
+                <li class="cs-list__item">
+                  <p><strong>Journey-based progression</strong> — Lessons are placed along a forward path to make progress feel more visible and encourage learners to keep going over time</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Cultural context through the interface</strong> — The screen frames learning as a window into Thailand, helping culture become part of the experience instead of something separate from it</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Topic-driven visual change</strong> — The environment around the journey can shift with the lesson topic, making content feel more relevant, dynamic, and connected to what learners are studying</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Hybrid learning always accessible</strong> — Exercise, Lab, Cultural, and 1:1 Tutor are placed in the main navigation so learners can easily move between self-paced study, cultural learning, peer conversation, and individual support</p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── LESSON STRUCTURE SUBSECTION ──────────────────────── -->
+        <div style="margin-top: 100px;">
+          <h2 class="subsection-title">
+            Guided Pronunciation Practice
+          </h2>
+
+          <p class="body-text" style="margin-top: 32px;">
+            This screen helps learners practice pronunciation in a way that feels clear and easy to follow, so they can focus on listening, repeating, and improving without overthinking.
+          </p>
+
+          <div class="cs-feature-block" style="margin-top: 48px; grid-template-columns: 0.5fr 1fr;">
+            <div class="cs-feature-block__img" style="max-width: 100%; padding: 0;">
+              <div class="feature-image-wrap">
+                <div class="cs-phone-mockup--tt">
+                  <img class="cs-phone-mockup__screen" src="ma.png" alt="Guided pronunciation screen showing waveform, slow/normal speed toggle, and hold-to-record microphone button" loading="lazy" />
+                  <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                </div>
+              </div>
+            </div>
+            <div class="cs-feature-block__text">
+              <ol class="cs-list" role="list">
+                <li class="cs-list__item">
+                  <p><strong>Speed control</strong> — Learners can slow the audio down to hear tone differences more clearly and practice at their own pace</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Simple first-time guidance</strong> — A popup explains how recording works for new users and appears again if someone stays inactive, so they do not get stuck</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Built for repetition</strong> — The flow makes it easy to listen, imitate, and try again, helping learners build confidence through practice</p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── BUILDING CONFIDENCE SUBSECTION ──────────────────────── -->
+        <div style="margin-top: 100px;">
+          <h2 class="subsection-title">
+            AI Feedback That Guides Improvement
+          </h2>
+
+          <p class="body-text" style="margin-top: 32px;">
+            To support more confident self-paced practice, I designed AI feedback to be specific enough to help learners improve on their own, while still leaving room for human support when needed.
+          </p>
+
+          <div class="cs-feature-block" style="margin-top: 48px; grid-template-columns: 0.5fr 1fr;">
+            <div class="cs-feature-block__img" style="max-width: 100%; padding: 0;">
+              <div class="feature-image-wrap">
+                <div class="cs-phone-mockup--tt">
+                  <img class="cs-phone-mockup__screen" src="Feedback_wrong.png" alt="AI feedback screen showing learner said wrong tone with specific correction and suggestion to try again" loading="lazy" />
+                  <img class="cs-phone-mockup__frame" src="iphone16light.png" alt="" aria-hidden="true" />
+                </div>
+              </div>
+            </div>
+            <div class="cs-feature-block__text">
+              <ol class="cs-list" role="list">
+                <li class="cs-list__item">
+                  <p><strong>More detailed than right or wrong</strong> — The feedback shows what tone the learner used and how it differs from the correct one</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Clear next step</strong> — Instead of vague correction, it tells learners what to adjust so they know what to try next</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Side-by-side comparison</strong> — Helps learners hear the difference between their attempt and the correct pronunciation</p>
+                </li>
+                <li class="cs-list__item">
+                  <p><strong>Supports the hybrid model</strong> — AI handles immediate pronunciation feedback during practice, while 1:1 tutor support is available when learners need deeper guidance</p>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+
+  <!-- =====================================================================
+       RESULTS
+       ===================================================================== -->
+  <div style="padding-bottom: var(--space-xl);">
+    <div class="container">
+
+      <hr style="margin-block: var(--space-xxl);" />
+
+      <section id="results" aria-labelledby="heading-results">
+        <p class="section-label">Reflection</p>
+        <h2 class="subsection-title" id="heading-results">
+          After 2 rounds of user testing, I found that learners responded well to more guided tone practice, clearer pronunciation support, and a more interactive learning experience.
+        </h2>
+
+        <div class="cs-content" style="margin-top: var(--space-lg);">
+          <p class="body-text">
+            The testing also showed interest in learning that goes beyond self-paced practice alone.
+          </p>
+
+          <div class="cs-results-grid">
+            <div class="cs-result-card">
+              <p class="cs-result-card__number">5/5</p>
+              <p class="cs-result-card__desc">Participants said tone practice felt clearer with guided feedback and comparison</p>
+            </div>
+            <div class="cs-result-card">
+              <p class="cs-result-card__number">5/5</p>
+              <p class="cs-result-card__desc">Participants responded positively to a more interactive learning experience</p>
+            </div>
+            <div class="cs-result-card">
+              <p class="cs-result-card__number">✦</p>
+              <p class="cs-result-card__desc">Learners showed strong interest in culturally grounded content and additional support beyond independent practice</p>
+            </div>
+          </div>
+
+          <p class="body-text" style="margin-top: var(--space-xl);">
+            This project reinforced that while AI can make practice more accessible and give quick feedback, learning still benefits from human support. Language is not just about getting the right answer. It also involves confidence, nuance, and connection. That insight helped shape the direction of the concept, even though not every part of that support system was fully designed yet.
+          </p>
+        </div>
+      </section>
+
+      <!-- NEXT -------------------------------------------------------- -->
+      <div class="cs-next" style="margin-top: var(--space-xxl);">
+        <div>
+          <p class="caption">← Previous case study</p>
+          <p class="card-title" style="margin-top: var(--space-sm);">FlyKind</p>
+          <p class="small-text" style="margin-top: var(--space-xs);">Aligning marketing and manufacturing in a unique eco business model</p>
+          <a href="flykind_2.html" class="button-secondary" style="margin-top: var(--space-md);">View FlyKind</a>
+        </div>
+        <div style="text-align: right;">
+          <p class="caption">Back to portfolio</p>
+          <p class="card-title" style="margin-top: var(--space-sm);">All Work</p>
+          <p class="small-text" style="margin-top: var(--space-xs);">Browse all case studies</p>
+          <a href="index.html#work" class="button-primary" style="margin-top: var(--space-md);">View All Work →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__top">
+          <div class="stack-sm">
+            <p class="footer__brand">Supanida Jennings</p>
+            <p class="footer__tagline">UX Designer. Designing structured systems that feel simple.</p>
+          </div>
+          <ul class="footer__links" role="list">
+            <li>
+              <a href="https://www.linkedin.com/in/supanida-jennings" class="footer__link footer__link--icon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+            </li>
+            <li><a href="mailto:okienobie@gmail.com" class="footer__link">Email</a></li>
+          </ul>
+        </div>
+        <div class="footer__bottom">
+          <span>© 2026 Supanida Jennings</span>
+          <span>UX Portfolio</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- =====================================================================
+       JS — Active subnav (Intersection Observer)
+       ===================================================================== -->
+  <script>
+    (function () {
+      const links    = document.querySelectorAll('.subnav__link[data-section]');
+      const sections = document.querySelectorAll('section[id]');
+      if (!links.length || !sections.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              links.forEach((link) => {
+                link.classList.toggle('is-active', link.dataset.section === id);
+              });
+            }
+          });
+        },
+        { rootMargin: '-120px 0px -70% 0px', threshold: 0 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    })();
+  </script>
+
+</body>
+</html>
