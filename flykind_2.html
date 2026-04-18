@@ -23,8 +23,8 @@
     }
 
     .section-label {
-      margin-top: var(--space-xxl);
-      margin-bottom: var(--space-xxl);
+      margin-top: 0;
+      margin-bottom: var(--space-lg);
     }
 
     html { scroll-padding-top: var(--scroll-offset); }
@@ -225,7 +225,7 @@
       background-color: var(--color-bg-secondary);
       border: 0.75px solid var(--color-border);
       border-radius: var(--radius-md);
-      padding: var(--space-lg);
+      padding: 28px;
     }
 
     .cs-strategy-icon {
@@ -459,7 +459,7 @@
     .cs-layout {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-xxl);
+      gap: 100px;
       align-items: start;
     }
 
@@ -500,7 +500,7 @@
     /* -------------------------------------------------------------------
        CONTENT RHYTHM
     ------------------------------------------------------------------- */
-    .cs-content p + p { margin-top: var(--space-lg); }
+    .cs-content p + p { margin-top: 28px; }
 
     .cs-content h3 {
       font-family: var(--font-heading);
@@ -528,7 +528,6 @@
     }
 
     .cs-list {
-      counter-reset: cs-counter;
       margin-top: var(--space-lg);
       display: flex;
       flex-direction: column;
@@ -537,19 +536,19 @@
 
     .cs-list__item {
       display: grid;
-      grid-template-columns: 28px 1fr;
+      grid-template-columns: var(--space-lg) 1fr;
       gap: var(--space-md);
       align-items: start;
     }
 
     .cs-list__item::before {
-      counter-increment: cs-counter;
-      content: counter(cs-counter, decimal-leading-zero);
-      font-size: var(--text-caption);
-      font-weight: var(--weight-semibold);
-      letter-spacing: var(--tracking-label);
-      color: var(--color-accent);
-      padding-top: 3px;
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      margin-top: 8px;
+      justify-self: center;
     }
 
     .cs-list__item p {
@@ -761,7 +760,7 @@
       background-color: var(--color-bg-secondary);
       border: 0.75px solid var(--color-border);
       border-radius: var(--radius-md);
-      padding: var(--space-lg);
+      padding: 28px;
     }
 
     .cs-result-card__number {
@@ -783,9 +782,25 @@
     /* -------------------------------------------------------------------
        NEXT CASE STUDY
     ------------------------------------------------------------------- */
+    /* -------------------------------------------------------------------
+       SECTION DIVIDERS
+    ------------------------------------------------------------------- */
+    .cs-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin-block: 100px;
+    }
+
+    main > .cs-divider:first-child { margin-top: 0; }
+    .cs-hero { padding-bottom: 100px; }
+
+    @media (max-width: 679px) {
+      .cs-divider { margin-block: 72px; }
+    }
+
     .cs-next {
       border-top: 0.75px solid var(--color-border);
-      padding-top: var(--space-xxl);
+      padding-top: 80px;
       display: flex;
       flex-direction: column;
       gap: var(--space-lg);
@@ -870,7 +885,7 @@
       <div class="cs-hero-overview-grid cs-layout">
 
         <!-- Left: all text content -->
-        <div>
+        <div style="padding-top: 1px;">
 
           <!-- Overview label sits above everything -->
           <p class="section-label">Overview</p>
@@ -897,8 +912,6 @@
             <span class="tag">Product System</span>
             <span class="tag">Storytelling</span>
           </div>
-
-          <!-- Overview text removed -->
 
         </div>
 
@@ -936,12 +949,12 @@
   <!-- =====================================================================
        BODY — Problem section + sidebar (mirrors TiriVelo)
        ===================================================================== -->
-  <div style="padding-top: 0; padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
       <div class="cs-layout">
         <main>
 
-          <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+          <hr class="cs-divider" />
 
           <!-- PROBLEM -------------------------------------------------- -->
           <section id="problem" aria-labelledby="heading-problem">
@@ -957,7 +970,7 @@
 
               <!-- Design challenge -->
               <div style="margin-top: 48px;">
-                <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-sm);">Design Challenge</h3>
+                <h3 style="font-family: var(--font-heading); font-size: var(--text-h3); font-weight: var(--weight-medium); letter-spacing: var(--tracking-heading); color: var(--color-text-heading); line-height: var(--lh-heading); margin-bottom: var(--space-sm);">What needed to be solved</h3>
                 <p class="body-text">
                   Create a shopping experience that makes unfamiliar upcycled products easier to understand, more trustworthy, and more compelling to buy, while supporting the business's need for clearer inventory communication and production planning.
                 </p>
@@ -1021,10 +1034,10 @@
   <!-- =====================================================================
        STRATEGY — full width with cards (mirrors TiriVelo)
        ===================================================================== -->
-  <div style="padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
 
-      <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+      <hr class="cs-divider" />
 
       <!-- STRATEGY ------------------------------------------------- -->
       <section id="strategy" aria-labelledby="heading-strategy">
@@ -1087,10 +1100,10 @@
   <!-- =====================================================================
        SOLUTION — full width (mirrors TiriVelo)
        ===================================================================== -->
-  <div style="padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
 
-          <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+          <hr class="cs-divider" />
 
           <!-- SOLUTION ------------------------------------------------- -->
           <section id="solution" aria-labelledby="heading-solution">
@@ -1203,7 +1216,7 @@
               <div class="feature-grid" style="margin-top: 48px;">
                 <div class="feature-column-left">
                   <div class="feature-card feature-card--tall">
-                    <p class="feature-label caption">Listing 1</p>
+                    <p class="feature-label caption">Initial listing</p>
                     <div class="feature-image-wrap">
                       <div class="cs-phone-mockup">
                         <img class="cs-phone-mockup__screen" src="Listing1.png" alt="FlyKind product listing showing individual items with color swatches, batch name, and pricing" loading="lazy" />
@@ -1214,7 +1227,7 @@
                 </div>
                 <div class="feature-column-right">
                   <div class="feature-card">
-                    <p class="feature-label caption">Listing 2</p>
+                    <p class="feature-label caption">Research-refined listing</p>
                     <div class="feature-image-wrap">
                       <div class="cs-phone-mockup">
                         <img class="cs-phone-mockup__screen" src="listing2.png" alt="FlyKind product listing with size filter, multiple product images, and batch labels" loading="lazy" />
@@ -1332,7 +1345,7 @@
 
           </section>
 
-          <hr style="margin-top: var(--space-xxl); margin-bottom: 0;" />
+          <hr class="cs-divider" />
 
           <!-- RESULTS -------------------------------------------------- -->
           <section id="results" aria-labelledby="heading-results">
@@ -1381,7 +1394,7 @@
             </div>
             <div style="text-align: right;">
               <p class="caption">Next case study →</p>
-              <p class="card-title" style="margin-top: var(--space-sm);">Thai Tongue</p>
+              <p class="card-title" style="margin-top: var(--space-sm);">ThaiTongue</p>
               <p class="small-text" style="margin-top: var(--space-xs);">Structured tone-learning for Thai language learners</p>
               <a href="thai-tongue.html" class="button-primary" style="margin-top: var(--space-md);">View Thai Tongue</a>
             </div>

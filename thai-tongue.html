@@ -256,7 +256,7 @@
     .cs-layout {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-xxl);
+      gap: 100px;
       align-items: start;
     }
 
@@ -296,7 +296,7 @@
     /* -------------------------------------------------------------------
        CONTENT
     ------------------------------------------------------------------- */
-    .cs-content p + p { margin-top: var(--space-lg); }
+    .cs-content p + p { margin-top: 28px; }
 
     .cs-pullquote {
       border-left: 4px solid var(--color-accent);
@@ -317,7 +317,6 @@
        ORDERED LIST
     ------------------------------------------------------------------- */
     .cs-list {
-      counter-reset: cs-counter;
       margin-top: var(--space-lg);
       display: flex;
       flex-direction: column;
@@ -326,19 +325,19 @@
 
     .cs-list__item {
       display: grid;
-      grid-template-columns: 28px 1fr;
+      grid-template-columns: var(--space-lg) 1fr;
       gap: var(--space-md);
       align-items: start;
     }
 
     .cs-list__item::before {
-      counter-increment: cs-counter;
-      content: counter(cs-counter, decimal-leading-zero);
-      font-size: var(--text-caption);
-      font-weight: var(--weight-semibold);
-      letter-spacing: var(--tracking-label);
-      color: var(--color-accent);
-      padding-top: 3px;
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      margin-top: 8px;
+      justify-self: center;
     }
 
     .cs-list__item p {
@@ -361,7 +360,7 @@
       background-color: var(--color-bg-secondary);
       border: 0.75px solid var(--color-border);
       border-radius: var(--radius-md);
-      padding: var(--space-lg);
+      padding: 28px;
     }
 
     .cs-strategy-icon {
@@ -424,7 +423,7 @@
       background-color: var(--color-bg-secondary);
       border: 0.75px solid var(--color-border);
       border-radius: var(--radius-md);
-      padding: var(--space-lg);
+      padding: 28px;
     }
 
     .cs-result-card__number {
@@ -446,9 +445,25 @@
     /* -------------------------------------------------------------------
        NEXT
     ------------------------------------------------------------------- */
+    /* -------------------------------------------------------------------
+       SECTION DIVIDERS
+    ------------------------------------------------------------------- */
+    .cs-divider {
+      border: none;
+      border-top: 1px solid var(--color-border);
+      margin-block: 100px;
+    }
+
+    main > .cs-divider:first-child { margin-top: 0; }
+    .cs-hero { padding-bottom: 100px; }
+
+    @media (max-width: 679px) {
+      .cs-divider { margin-block: 72px; }
+    }
+
     .cs-next {
       border-top: 0.75px solid var(--color-border);
-      padding-top: var(--space-xxl);
+      padding-top: 80px;
       display: flex;
       flex-direction: column;
       gap: var(--space-lg);
@@ -631,7 +646,7 @@
         <a href="#problem"   class="subnav__link" data-section="problem">Problem</a>
         <a href="#strategy"  class="subnav__link" data-section="strategy">Strategy</a>
         <a href="#solution"  class="subnav__link" data-section="solution">Solution</a>
-        <a href="#results"   class="subnav__link" data-section="results">Reflection</a>
+        <a href="#results"   class="subnav__link" data-section="results">Results</a>
       </div>
     </div>
   </nav>
@@ -653,14 +668,14 @@
         <!-- Left: text starting at h1 -->
         <div>
 
-          <h1 class="section-title animate-in animate-in--delay-1">Thai Tongue</h1>
+          <h1 class="section-title animate-in animate-in--delay-1">ThaiTongue</h1>
           <p class="caption animate-in animate-in--delay-1"
              style="margin-top: var(--space-sm); color: var(--color-text-muted); letter-spacing: var(--tracking-label); text-transform: uppercase;">
             UX Case Study
           </p>
 
           <p class="cs-hero__sub animate-in animate-in--delay-2" style="margin-top: var(--space-lg);">
-            Learning Thai is challenging, not just because of vocabulary, but because of tones, cultural nuance, and lack of contextual learning in most apps. Thai Tongue was designed to make learning feel more natural and engaging by combining structured guidance with real-world cultural understanding.
+            Learning Thai is challenging, not just because of vocabulary, but because of tones, cultural nuance, and lack of contextual learning in most apps. ThaiTongue was designed to make learning feel more natural and engaging by combining structured guidance with real-world cultural understanding.
           </p>
 
           <div class="cs-bullets animate-in animate-in--delay-3" style="margin-top: var(--space-lg);">
@@ -670,10 +685,10 @@
           </div>
 
           <div class="cs-hero__tags" style="margin-top: var(--space-lg);">
-            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">E-Learning</span>
-            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">Intuitive Learning</span>
-            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">AI + Human Hybrid</span>
-            <span class="tag" style="text-transform: uppercase; letter-spacing: var(--tracking-label); font-size: var(--text-caption);">Culturally Grounded Experience</span>
+            <span class="tag">E-Learning</span>
+            <span class="tag">Intuitive Learning</span>
+            <span class="tag">AI + Human Hybrid</span>
+            <span class="tag">Culturally Grounded Experience</span>
           </div>
 
         </div>
@@ -711,18 +726,18 @@
   <!-- =====================================================================
        BODY — Problem section + sidebar
        ===================================================================== -->
-  <div style="padding-top: var(--space-xxl); padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
       <div class="cs-layout">
         <main>
 
-          <hr style="margin-block: var(--space-xxl);" />
+          <hr class="cs-divider" />
 
           <!-- PROBLEM -------------------------------------------------- -->
           <section id="problem" aria-labelledby="heading-problem">
             <p class="section-label">Problem</p>
 
-            <div class="cs-content" style="margin-top: var(--space-lg);">
+            <div class="cs-content" style="margin-top: 32px;">
               <h2 class="subsection-title" id="heading-problem">
                 Most language learning apps focus on vocabulary and repetition, but Thai learners often struggle with tones, pronunciation, and cultural context.
               </h2>
@@ -826,10 +841,10 @@
   <!-- =====================================================================
        STRATEGY — full width with cards
        ===================================================================== -->
-  <div style="padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
 
-      <hr style="margin-block: var(--space-xxl);" />
+      <hr class="cs-divider" />
 
       <section id="strategy" aria-labelledby="heading-strategy">
         <p class="section-label">Strategy</p>
@@ -837,7 +852,7 @@
           To make learning Thai more effective and engaging, I focused on creating a system that adapts to each learner while supporting both independent practice and real interaction.
         </h2>
 
-        <div class="cs-strategy-grid" style="margin-top: var(--space-lg);">
+        <div class="cs-strategy-grid" style="margin-top: 40px;">
 
           <div class="cs-strategy-card">
             <div class="cs-strategy-icon" aria-hidden="true">
@@ -904,10 +919,10 @@
   <!-- =====================================================================
        SOLUTION — full width
        ===================================================================== -->
-  <div style="padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
 
-      <hr style="margin-block: var(--space-xxl);" />
+      <hr class="cs-divider" />
 
       <section id="solution" aria-labelledby="heading-solution">
         <p class="section-label">Solution</p>
@@ -1083,18 +1098,18 @@
   <!-- =====================================================================
        RESULTS
        ===================================================================== -->
-  <div style="padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
 
-      <hr style="margin-block: var(--space-xxl);" />
+      <hr class="cs-divider" />
 
       <section id="results" aria-labelledby="heading-results">
-        <p class="section-label">Reflection</p>
+        <p class="section-label">Results</p>
         <h2 class="subsection-title" id="heading-results">
           After 2 rounds of user testing, I found that learners responded well to more guided tone practice, clearer pronunciation support, and a more interactive learning experience.
         </h2>
 
-        <div class="cs-content" style="margin-top: var(--space-lg);">
+        <div class="cs-content" style="margin-top: 32px;">
           <p class="body-text">
             The testing also showed interest in learning that goes beyond self-paced practice alone.
           </p>

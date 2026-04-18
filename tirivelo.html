@@ -384,7 +384,7 @@
     .cs-layout {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-xxl);
+      gap: 100px;
       align-items: start;
     }
 
@@ -431,6 +431,9 @@
       margin-block: 100px;
     }
 
+    main > .cs-divider:first-child { margin-top: 0; }
+    .cs-hero { padding-bottom: 100px; }
+
     @media (max-width: 679px) {
       .cs-divider { margin-block: 72px; }
     }
@@ -466,7 +469,6 @@
     }
 
     .cs-list {
-      counter-reset: cs-counter;
       margin-top: 28px;
       display: flex;
       flex-direction: column;
@@ -475,19 +477,19 @@
 
     .cs-list__item {
       display: grid;
-      grid-template-columns: 28px 1fr;
+      grid-template-columns: var(--space-lg) 1fr;
       gap: var(--space-md);
       align-items: start;
     }
 
     .cs-list__item::before {
-      counter-increment: cs-counter;
-      content: counter(cs-counter, decimal-leading-zero);
-      font-size: var(--text-caption);
-      font-weight: var(--weight-semibold);
-      letter-spacing: var(--tracking-label);
-      color: var(--color-accent);
-      padding-top: 3px;
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-accent);
+      margin-top: 8px;
+      justify-self: center;
     }
 
     .cs-list__item p {
@@ -884,10 +886,6 @@
             <span class="tag">Marketplace</span>
           </div>
 
-          <!-- Overview text — space only, no line -->
-          <div style="margin-top: 80px;">
-          </div>
-
         </div>
 
         <!-- Right: real iPhone 15 image with video behind screen -->
@@ -924,7 +922,7 @@
   <!-- =====================================================================
        BODY — remaining sections + sidebar
        ===================================================================== -->
-  <div style="padding-top: 0; padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
       <div class="cs-layout">
         <main>
@@ -1026,7 +1024,7 @@
   <!-- =====================================================================
        STRATEGY — full width
        ===================================================================== -->
-  <div style="padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
 
       <hr class="cs-divider" />
@@ -1113,7 +1111,7 @@
   <!-- =====================================================================
        SOLUTION — full width
        ===================================================================== -->
-  <div style="padding-bottom: var(--space-xl);">
+  <div>
     <div class="container">
 
           <hr class="cs-divider" />
@@ -1321,7 +1319,7 @@
           <div class="cs-next" style="margin-top: var(--space-xxl); justify-content: space-between;">
             <div>
               <p class="caption">← Previous case study</p>
-              <p class="card-title" style="margin-top: var(--space-sm);">Thai Tongue</p>
+              <p class="card-title" style="margin-top: var(--space-sm);">ThaiTongue</p>
               <p class="small-text" style="margin-top: var(--space-xs);">Structured tone-learning for Thai language learners</p>
               <a href="thai-tongue.html" class="button-secondary" style="margin-top: var(--space-md);">View Thai Tongue</a>
             </div>
